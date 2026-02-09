@@ -1,12 +1,22 @@
-# Mermaid Diagram Theming
+# Mermaid Theming Reference
 
-Diagrams should match the site's visual identity, not look like default documentation. Two approaches: `beautiful-mermaid` (primary) for pre-rendered SVG, and native Mermaid `themeVariables` for inline/runtime rendering.
+Implementation patterns for rendering beautiful, site-integrated Mermaid diagrams.
+Covers `beautiful-mermaid` (the preferred library), native Mermaid theming, SVG
+post-processing, and SvelteKit component patterns.
 
-## beautiful-mermaid (Primary)
+## Library: beautiful-mermaid
 
-A pure TypeScript library with 15 built-in themes and Shiki VS Code theme compatibility. Zero DOM dependencies. Ultra-fast: 100+ diagrams in <500ms.
+`beautiful-mermaid` (by Craft/lukilabs) is the recommended renderer for this stack.
 
-### Setup
+**Why it wins:**
+- 15 built-in themes (Tokyo Night, Dracula, Nord, Catppuccin, GitHub, Monokai, etc.)
+- Live theme switching via CSS custom properties (no re-render needed)
+- Full Shiki VS Code theme compatibility (use any VS Code theme directly)
+- Zero DOM dependencies (pure TypeScript)
+- SVG and ASCII/Unicode dual output
+- Ultra-fast (100+ diagrams in <500ms)
+
+### Installation
 ```bash
 bun add beautiful-mermaid
 ```
@@ -14,44 +24,150 @@ bun add beautiful-mermaid
 ### Basic Usage
 ```typescript
 import { renderMermaid, THEMES } from 'beautiful-mermaid';
+
 const svg = await renderMermaid(diagramCode, THEMES['tokyo-night']);
 ```
 
-### Built-in Themes
-Tokyo Night, Dracula, Nord, Catppuccin (Mocha, Latte, Frappe, Macchiato), GitHub (Light, Dark), Monokai, One Dark Pro, Solarized (Light, Dark), Gruvbox, Rose Pine.
-
-### Custom Theme (Match Site Palette)
+### Custom Theme (Matching Site Palette)
 ```typescript
 const siteTheme = {
-  bg: 'var(--color-canvas)',
+  bg: 'var(--color-base)',      // or resolved hex
   fg: 'var(--color-text)',
-  accent: 'var(--color-accent)',
-  muted: 'var(--color-text-secondary)',
+  accent: 'var(--color-accent)', // for arrows and highlights
+  muted: 'var(--color-muted)',   // for subdued labels
 };
+
 const svg = await renderMermaid(diagram, siteTheme);
 ```
 
+For richer control, add optional fields: `surface`, `border`, `success`, `warning`, `error`.
+
 ### Live Theme Switching
-beautiful-mermaid uses CSS variables internally. Change them and the diagram updates without re-rendering:
+After rendering, update CSS variables directly on the SVG element:
 ```javascript
-svg.style.setProperty('--bg', newBgColor);
-svg.style.setProperty('--fg', newFgColor);
+svg.style.setProperty('--bg', '#282a36');
+svg.style.setProperty('--fg', '#f8f8f2');
+// Diagram updates immediately without re-rendering
 ```
 
-### Shiki Integration (VS Code Themes)
+### Shiki Integration
+Extract colors from any VS Code theme:
 ```typescript
 import { extractShikiColors } from 'beautiful-mermaid';
 import tokyoNight from 'shiki/themes/tokyo-night';
+
 const theme = extractShikiColors(tokyoNight);
 const svg = await renderMermaid(diagram, theme);
 ```
 
+## Native Mermaid Theming (Fallback)
+
+When using Mermaid's built-in renderer (e.g., for static site generation or markdown
+previews where beautiful-mermaid cannot be used):
+
+### Available Looks (Mermaid v11+)
+- `neo`: Modern, clean, current default
+- `handDrawn`: Sketch-style via RoughJS
+- `classic`: Traditional Mermaid appearance
+
+Set via frontmatter in the diagram code:
+```
+---
+config:
+  look: neo
+  theme: base
+---
+flowchart LR
+  A --> B
+```
+
+### Theme Variables (base theme only)
+Only the `base` theme accepts custom `themeVariables`. Map them to your site's CSS
+variables at initialization time:
+
+```javascript
+import mermaid from 'mermaid';
+
+function getCSSVar(name, fallback) {
+  return getComputedStyle(document.documentElement)
+    .getPropertyValue(name).trim() || fallback;
+}
+
+mermaid.initialize({
+  startOnLoad: false,
+  theme: 'base',
+  themeVariables: {
+    primaryColor: getCSSVar('--color-accent', '#3b82f6'),
+    primaryTextColor: getCSSVar('--color-text', '#f8fafc'),
+    primaryBorderColor: getCSSVar('--color-accent', '#3b82f6'),
+    lineColor: getCSSVar('--color-muted', '#64748b'),
+    secondaryColor: getCSSVar('--color-surface', '#1e293b'),
+    tertiaryColor: getCSSVar('--color-base', '#0f172a'),
+    edgeLabelBackground: getCSSVar('--color-surface', '#1e293b'),
+    fontFamily: getCSSVar('--font-body', 'DM Sans, sans-serif'),
+    fontSize: '14px',
+  },
+  look: 'neo',
+});
+```
+
+**Critical**: `themeVariables` only accepts hex colors, not CSS variable references or
+color names. Resolve variables to hex at runtime before passing.
+
+## SVG Post-Processing
+
+Mermaid outputs raw SVG. Treat it as a base layer to enhance.
+
+### Texture Overlay
+Wrap the rendered SVG in a container with `position: relative`. Add a `::after`
+pseudo-element with a geometric noise or dot pattern:
+
+```css
+.mermaid-container {
+  position: relative;
+}
+.mermaid-container::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, var(--color-muted) 1px, transparent 1px);
+  background-size: 16px 16px;
+  mix-blend-mode: overlay;
+  opacity: 0.06;
+  pointer-events: none;
+}
+```
+
+### Drop Shadow
+Apply CSS `filter: drop-shadow(0 4px 12px rgba(0,0,0,0.15))` to the SVG container
+for subtle depth separation from the page background.
+
+### Border Treatment
+Wrap in a card-style container with the site's border and background tokens:
+```css
+.mermaid-card {
+  border: 1px solid var(--color-border);
+  border-radius: 0.75rem;
+  padding: 2rem;
+  background: var(--color-surface);
+  overflow: hidden;
+}
+```
+
+### Dark Mode Adaptation
+When switching between light and dark modes, Mermaid SVGs rendered with
+`beautiful-mermaid` update automatically via CSS variables. For native Mermaid,
+re-initialize with updated `themeVariables` or maintain two pre-rendered versions.
+
 ## SvelteKit Component Pattern
+
+Create a reusable `<MermaidDiagram>` component:
 
 ```svelte
 <script lang="ts">
   import { renderMermaid } from 'beautiful-mermaid';
-  let { code, theme = undefined }: { code: string; theme?: any } = $props();
+
+  let { code, theme = undefined }: { code: string; theme?: object } = $props();
   let svgHtml = $state('');
 
   $effect(() => {
@@ -61,94 +177,50 @@ const svg = await renderMermaid(diagram, theme);
   });
 </script>
 
-<div class="mermaid-container rounded-xl border border-[var(--color-border)]
-  bg-[var(--color-surface)] p-6 shadow-sm">
+<div class="mermaid-container">
   {@html svgHtml}
 </div>
-```
 
-## Native Mermaid (Fallback)
-
-When beautiful-mermaid is not available or inline rendering is needed.
-
-### Available Looks (v11+)
-- `neo`: Modern, clean (current default)
-- `handDrawn`: Sketch-style via RoughJS
-- `classic`: Traditional Mermaid
-
-### Theme Variables (base theme only)
-Only the `base` theme accepts custom `themeVariables`. Resolve CSS variables to hex at runtime since Mermaid only accepts hex colors:
-
-```javascript
-mermaid.initialize({
-  theme: 'base',
-  look: 'neo',
-  themeVariables: {
-    primaryColor: getComputedStyle(root).getPropertyValue('--color-surface').trim(),
-    primaryTextColor: getComputedStyle(root).getPropertyValue('--color-text').trim(),
-    primaryBorderColor: getComputedStyle(root).getPropertyValue('--color-border').trim(),
-    lineColor: getComputedStyle(root).getPropertyValue('--color-text-secondary').trim(),
-    secondaryColor: getComputedStyle(root).getPropertyValue('--color-canvas').trim(),
-    tertiaryColor: getComputedStyle(root).getPropertyValue('--color-surface').trim(),
-    fontFamily: 'var(--font-body)',
-    fontSize: '14px',
+<style>
+  .mermaid-container {
+    position: relative;
+    border: 1px solid var(--color-border);
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    background: var(--color-surface);
   }
-});
+  .mermaid-container :global(svg) {
+    width: 100%;
+    height: auto;
+  }
+</style>
 ```
 
-## SVG Post-Processing
-
-### Texture Overlay
-Wrap the rendered SVG in a container with a pseudo-element texture:
-```css
-.mermaid-container {
-  position: relative;
-}
-.mermaid-container::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image: url('/textures/dot-pattern.svg');
-  background-size: 20px;
-  mix-blend-mode: overlay;
-  opacity: 0.04;
-  pointer-events: none;
-  border-radius: inherit;
-}
-```
-
-### Drop Shadow
-`filter: drop-shadow(0 4px 12px rgba(0,0,0,0.1))` on the SVG container. On dark themes: `drop-shadow(0 4px 20px rgba(var(--accent-rgb), 0.15))`.
-
-### Border Treatment
-Card wrapper with site tokens: `border: 1px solid var(--color-border)`, `border-radius: 0.75rem`, `padding: 2rem`, `background: var(--color-surface)`.
-
-## Diagram-Type Specific Styling
+## Diagram Type Styling Notes
 
 ### Flowcharts
-`neo` look for professional. `handDrawn` for educational/whiteboard feel. Use directional flow: top-down for processes, left-right for timelines.
+- Use `neo` look for professional contexts
+- Use `handDrawn` look for documentation, educational content, or casual aesthetics
+- Node shapes: rounded rectangles for processes, diamonds for decisions, stadiums for start/end
 
 ### Sequence Diagrams
-Enable `rightAngles: true` for cleaner connector lines. Use `autonumber` for step numbering. Color-code actors by role using `themeVariables`.
+- Set `rightAngles: true` in config for cleaner lines
+- Custom font via `themeVariables.fontFamily`
+- Activation boxes benefit from the accent color as `actorBorder`
+- Use `autonumber` for step numbering in technical documentation
 
 ### State Diagrams
-Map colors semantically: green nodes = active/running, amber = transitional/pending, red = error/stopped, gray = inactive/completed.
+- Map state colors to semantic meaning (green = active, amber = transitional, red = error)
+- Use notes (`note right of State`) for annotations
 
 ### Gantt Charts
-Section colors should map to team or workstream identity. Use site's accent for milestones. Keep date formats consistent.
-
-### Architecture Diagrams
-Group related nodes. Use subgraphs with labeled backgrounds. Maintain consistent flow direction within each subgraph.
-
-## ASCII/Unicode Output
-
-beautiful-mermaid supports dual output: SVG for web display, ASCII for terminal/documentation contexts. Use ASCII mode for `<pre>` blocks in technical docs or CLI output formatting.
+- Section colors should map to team/workstream identity
+- Critical path highlighting via custom class assignments
 
 ## Print Considerations
 
-- SVGs print cleanly at any DPI (vector)
-- `-webkit-print-color-adjust: exact` to preserve diagram colors
-- Remove texture overlays in `@media print`
-- Set explicit `width` and `max-width` to prevent page overflow
-- `break-inside: avoid` to keep diagrams intact across page breaks
-- Consider light-theme rendering for print regardless of site theme
+Mermaid SVGs print cleanly at any resolution since they are vector graphics. Ensure:
+- Container has `-webkit-print-color-adjust: exact` to preserve colors
+- Remove the texture overlay pseudo-element in `@media print` (noise patterns waste ink)
+- Set explicit `width` and `max-width` on the SVG to prevent overflow on A4/Letter
+- Apply `break-inside: avoid` to prevent diagrams splitting across pages
