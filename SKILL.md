@@ -1,7 +1,7 @@
 ---
 name: frontend-design-masterclass
-description: "Build distinctive frontend UI with SvelteKit/Bun/Hono. Use when: creating web pages, dashboards, landing pages, hero sections, apps, posters, artifacts. Also: beautify, redesign, style, theme, pick fonts, add animations, build charts, style tables, create Mermaid diagrams, add parallax, create infographics, dark/light themes. Keywords: frontend, UI, layout, typography, font pairing, color palette, animation, microanimation, parallax, chart, dashboard, visualization, landing page, hero, CTA, button, dark mode, light mode, responsive, hover effect, scroll animation, infographic, mermaid, data table, SaaS, e-commerce, portfolio, fintech, healthcare, gaming, admin panel, design system. Use even when design is not explicitly requested for any web interface build."
-license: MIT - see LICENSE.txt
+description: "Builds distinctive frontend UI with SvelteKit/Bun/Hono. Triggers on: web pages, dashboards, landing pages, apps, artifacts, styling, theming, fonts, animations, charts, dark/light modes."
+license: MIT
 ---
 
 # Frontend Design Masterclass v2.1
