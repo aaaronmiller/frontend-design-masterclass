@@ -47,7 +47,7 @@ Creates a card that rotates based on mouse position, simulating a floating physi
     function handleMouseLeave() {
       node.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1,1,1)';
     }
-    node.style.transition = 'transform 0.15s ease-out';
+    node.style.transition = 'transform var(--duration-enter-fast) var(--ease-enter)';
     node.style.transformStyle = 'preserve-3d';
     node.addEventListener('mousemove', handleMouseMove);
     node.addEventListener('mouseleave', handleMouseLeave);

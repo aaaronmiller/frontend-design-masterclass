@@ -4,7 +4,7 @@ description: "Builds distinctive frontend UI with SvelteKit/Bun/Hono. Triggers o
 license: MIT
 ---
 
-# Frontend Design Masterclass v2.1
+# Frontend Design Masterclass v2.2
 
 Build interfaces that resonate, not just render. This skill enforces bold, intentional
 design with a modern high-performance stack. Every pixel must justify its existence.
@@ -66,10 +66,11 @@ reference files from `references/` to access deep implementation patterns.
 **Triggers**: "landing page", "hero", "above the fold", "homepage", "site title",
 "headline", "CTA", "call to action", "conversion", "first impression"
 **Load**: `references/landing-pages.md`
-**Provides**: Hero section anatomy, 8 timeless landing page styles (Apple Keynote,
-Editorial Broadsheet, Geometric Playground, Cinematic Immersive, Swiss Grid,
-Neo-Brutalist, Organic Flow, Retro Terminal), visual flow patterns (Z/F/Golden/Diagonal),
-conversion architecture, mobile-first hero strategy, code patterns.
+**Provides**: Hero section anatomy with composition rule and brand test, design
+constraint defaults, 8 landing page styles (Apple Keynote, Editorial Broadsheet,
+Geometric Playground, Cinematic Immersive, Swiss Grid, Neo-Brutalist, Organic Flow,
+Retro Terminal — with caveat), visual flow patterns (Z/F/Golden/Diagonal), conversion
+architecture, mobile-first hero strategy, expanded anti-patterns catalog, code patterns.
 
 ### Typography and Font Selection
 **Triggers**: "font", "typography", "typeface", "heading", "text style", "font pairing",
@@ -155,17 +156,49 @@ When **no triggers** are detected, apply the Universal Mandates below directly.
 LLMs converge toward high-probability "safe" design patterns from training data.
 This is distributional convergence. Fight it deliberately.
 
+### Card Sickness (Critical)
+The single most common LLM frontend failure: wrapping everything in rounded-corner
+cards/boxes regardless of design necessity. Homepages are NOT dashboards.
+- **Default to cardless layouts.** Sections should use full-bleed backgrounds,
+  typographic hierarchy, and whitespace to create visual separation — not containers.
+- Cards are acceptable ONLY for: repeated data items (product grids, team members),
+  interactive elements that need visual affordance, or actual dashboard widgets.
+- If you catch yourself generating cards on a landing page hero, STOP and restructure
+  to full-bleed editorial layout.
+- No hero cards. No center-column hero wrapped in a box with a brief CTA inside.
+
+### Pill & Clutter Sickness
+- **No pill clusters**: Do not use pill-shaped tags/badges for non-functional data.
+  Status pills like "AI Powered" or "New" that serve no interactive purpose are clutter.
+  Remove all decorative pills on first pass. Fix any layout shifts that result.
+- **No stat strips**: Rows of meaningless metrics (e.g., "10K+ users | 99.9% uptime |
+  50+ integrations") below the hero that add nothing and scream "AI-generated."
+- **No eyebrow titles**: Small category labels above headlines ("Our Approach",
+  "Why Choose Us") that add zero value. If the headline is strong, it needs no preface.
+- **No icon rows**: Lines of icons with labels restating what the heading already said.
+
+### Composition Rule
+The first viewport must read as ONE composition — not a dashboard, not a collection
+of cards. Unless you are literally building a dashboard.
+- **Brand test**: If the first viewport could belong to any other brand after removing
+  the nav, the branding is too weak. Redesign.
+- **Design constraint defaults**: 1 H1 headline, no more than 6 sections total, 2
+  typefaces maximum, 1 accent color, 1 primary CTA above the fold.
+
 **REJECT**: Bootstrap/Tailwind defaults shipped as-is, Inter/Roboto/Arial/system fonts,
 purple-on-white color schemes, predictable card grids, cookie-cutter hero sections,
 centered-everything layouts, stock photography, generic gradients, emoji icons in UI,
 magic number spacing, invisible hover states, layout-shifting scale transforms on hover,
-light-mode glass cards with <30% opacity, muted text below gray-500 contrast.
+light-mode glass cards with <30% opacity, muted text below gray-500 contrast,
+card-within-card nesting, decorative status bars, floating card clusters in hero areas,
+design style names leaking into copy (e.g., a "brutalist" page calling itself "brutal").
 
 **EMBRACE**: Intentional typography hierarchies, asymmetric compositions, atmospheric
 depth, kinetic feedback, editorial grids, geometric eye-guides, print-ready precision,
 custom color palettes built from color theory, distinctive font pairings, SVG icon
 systems (Lucide, Heroicons) with consistent viewBox, cursor-pointer on every clickable
-element, stable hover states using color/opacity (not layout-disrupting transforms).
+element, stable hover states using color/opacity (not layout-disrupting transforms),
+full-bleed sections with meaningful whitespace, typography-driven visual hierarchy.
 
 ## 5. Design Thinking (Pre-Code)
 
@@ -174,7 +207,8 @@ Before writing code, commit to a direction:
 1. **Purpose**: What does this solve? Who uses it?
 2. **Product Type**: Classify using the table in Section 2A for initial direction.
 3. **Aesthetic Tone**: Pick ONE and commit fully. See `references/landing-pages.md`
-   Section 3 for 8 proven styles. Or invent a hybrid.
+   Section 3 for proven styles. Or invent a hybrid. Avoid Retro Terminal unless
+   explicitly requested — it almost always produces cringe results across all models.
 4. **Color Direction**: Select primary hue, derive accent via color theory harmony.
    See `references/color-system.md` Section 3 for the full workflow.
 5. **Typography**: Choose display + body + mono trio from
@@ -201,11 +235,18 @@ NEVER use pure purple (H: 270-280) as primary. Shift to indigo, teal, coral, or 
 Never use flat, solid-color backgrounds for hero sections.
 See `references/imagery.md` for the three-layer composition technique, dithering
 algorithms, and Nano Banana integration patterns.
+When placing images, verify dimensions and aspect ratios. LLMs consistently produce
+bad image crops — wrong dimensions, subjects cut off, empty space where visual weight
+should be. Manually check image placement and fix after generation.
 
 ### Microanimations (Mandatory)
 Every interactive element must provide motion feedback.
 See `references/microanimations.md` for the complete 5-state button system,
-scroll-driven animations, and haptic-feel patterns.
+scroll-driven animations, haptic-feel patterns, and **motion token system**.
+All durations and easing curves MUST use CSS custom property tokens (`--duration-*`,
+`--ease-*`). NEVER hardcode `transition: 0.3s ease` — use the defined tokens.
+Enter animations use `--ease-enter` (decelerate), exits use `--ease-exit` (accelerate).
+Enters are always slightly longer than exits (asymmetric timing).
 
 ### Spatial Composition
 Vertical scaffolding, asymmetry, negative space, grid-breaking elements.
@@ -249,13 +290,21 @@ Run this before delivering any UI code. Every item is a known failure mode.
 - [ ] Hover states cause NO layout shift (use opacity/color, not scale transforms)
 - [ ] No default Tailwind color classes without customization
 - [ ] Typography pairing is intentional and loaded (not system fallback)
+- [ ] No card sickness: landing pages use full-bleed sections, NOT card wrappers
+- [ ] No orphan pills: remove all decorative pill badges that serve no function
+- [ ] No stat strips or eyebrow titles above headlines
+- [ ] Images have correct dimensions and aspect ratios (no bad crops or cutoffs)
+- [ ] Design style name does NOT leak into the page copy
 
 ### Interaction
 - [ ] Every clickable element has `cursor-pointer`
 - [ ] Every interactive element has visible hover feedback
+- [ ] Hover states verified on ALL elements that visually suggest interactivity
+  (if it looks clickable, it must have a hover state — missing hovers reveal AI slop)
 - [ ] Transitions use 150-300ms duration (never >500ms for UI, never 0ms)
 - [ ] Focus states are visible and styled (not browser defaults, never removed)
 - [ ] Touch targets are minimum 44x44px on mobile
+- [ ] Nav backdrop/blur appears on scroll so nav doesn't clash with content below
 
 ### Light/Dark Mode
 - [ ] Light mode: text contrast passes WCAG AA (4.5:1 minimum)
@@ -280,10 +329,17 @@ Run this before delivering any UI code. Every item is a known failure mode.
 - [ ] `prefers-reduced-motion` disables animations and parallax
 - [ ] Keyboard navigation works for all interactive elements
 
+### Motion System
+- [ ] Motion tokens (`--duration-*`, `--ease-*`) defined in `:root`
+- [ ] No bare `ease`, `ease-in-out`, or hardcoded durations — use tokens throughout
+- [ ] Enter animations use `--ease-enter` (decelerate), exits use `--ease-exit` (accelerate)
+- [ ] Enter durations are ~1.25-1.5x exit durations (asymmetric timing)
+- [ ] Modals/dialogs use spring easing (`--ease-spring`) on enter
+- [ ] Animations use GPU-composited properties only (transform, opacity)
+
 ### Performance
 - [ ] Fonts loaded with `display: swap` or preloaded
 - [ ] Images use modern formats (WebP/AVIF) with width/height set
-- [ ] Animations use GPU-composited properties only (transform, opacity)
 - [ ] No layout thrashing from scroll event handlers
 - [ ] Print stylesheet hides nav/footer, forces white background
 
@@ -292,5 +348,26 @@ Run this before delivering any UI code. Every item is a known failure mode.
 You are FORBIDDEN from producing "default-looking" code. Everything must feel custom,
 bold, and intentionally designed for the specific context. No two designs should look
 alike. Vary themes, fonts, layouts, and animation approaches across every generation.
+
+### The Variety Test
+If you generate multiple pages or redesign within a session, each output MUST have:
+- A different layout structure (not just a color swap)
+- A different font pairing
+- A different animation approach
+- A different section flow (not the same hero -> 3-cards -> CTA -> footer)
+
+Identical structure with different colors is the hallmark of a model with too few
+internal templates. You have the capability to produce genuinely different designs.
+Use it.
+
+### Post-Generation QA
+After generating any UI, run a quick vibe-check:
+1. **Card audit**: Are there cards that shouldn't be cards? Remove them.
+2. **Pill audit**: Are there decorative pills/badges? Remove them.
+3. **Hover audit**: Does every clickable-looking element have a hover state?
+4. **Nav audit**: Does the nav have exactly 3 items by default? Vary it.
+5. **Copy audit**: Did the design style name leak into the copy?
+6. **Image audit**: Are images cropped correctly with good visual weight?
+7. **Color audit**: Is it defaulting to purple-blue gradients?
 
 Claude is capable of extraordinary creative work. Commit fully to the vision.

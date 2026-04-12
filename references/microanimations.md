@@ -31,6 +31,86 @@ Every animation must serve a purpose. The three valid reasons to animate:
 If an animation doesn't serve one of these, remove it. Motion for motion's sake
 is visual noise that slows perception and drains battery.
 
+### Animation Variety Mandate
+
+LLMs converge on the same animation patterns across generations. Watch for these
+and actively vary your approach:
+
+- **Stacked text reveal**: Words sliding up one-by-one is the most overused reveal
+  animation. After the first use on a page, switch to clip-reveal, fade-blur,
+  letter-by-letter, or a simple opacity fade for subsequent sections.
+- **Uniform stagger**: Every list with identical 80ms delays gets predictable fast.
+  Vary delays, directions, or use random-offset staggers for organic feel.
+- **Pop-in timing bugs**: Elements that fade in smoothly... then a batch "pops" in
+  at the end. This is a common CSS bug from mismatched animation durations. Verify
+  that ALL elements in a stagger sequence complete smoothly — no abrupt final frames.
+
+Vary animation approaches across sections: if the hero uses a slide-up reveal, use
+a fade-blur for the features section and a clip-path wipe for the testimonials.
+
+### Motion Tokens (Required)
+
+All durations and easing curves MUST be defined as CSS custom properties. This
+ensures a unified motion rhythm across every component. Never hard-code
+`transition: 0.3s ease` inline — always reference a token.
+
+```css
+:root {
+  /* === Duration Tokens === */
+  /* Asymmetric timing: enters are longer than exits.
+     New content needs time to land; dismissed content should leave quickly. */
+  --duration-instant: 50ms;
+  --duration-fast: 100ms;
+  --duration-normal: 200ms;
+  --duration-slow: 350ms;
+  --duration-slower: 500ms;
+
+  /* Enter durations (slightly longer — content arriving) */
+  --duration-enter-fast: 150ms;
+  --duration-enter: 250ms;
+  --duration-enter-slow: 400ms;
+  --duration-enter-dramatic: 600ms;
+
+  /* Exit durations (shorter — content leaving) */
+  --duration-exit-fast: 100ms;
+  --duration-exit: 200ms;
+  --duration-exit-slow: 300ms;
+
+  /* === Easing Tokens (MD3 Emphasized Curves) === */
+  /* Decelerate on enter: fast start, gentle landing */
+  --ease-enter: cubic-bezier(0.2, 0, 0, 1);
+  /* Accelerate on exit: gentle start, fast departure */
+  --ease-exit: cubic-bezier(0.3, 0, 0.8, 0.15);
+  /* Standard: symmetric for state changes (hover, color) */
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  /* Bounce: playful overshoot for toggles, playful UI */
+  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+  /* Spring: physically-modeled feel for modals and dialogs */
+  --ease-spring: cubic-bezier(0.22, 1.4, 0.36, 1);
+  /* Snap: quick decisive state changes */
+  --ease-snap: cubic-bezier(0.68, -0.55, 0.27, 1.55);
+}
+```
+
+**Asymmetric timing rule**: When an element enters AND exits, always use
+`--duration-enter-*` with `--ease-enter` for the appear, and `--duration-exit-*`
+with `--ease-exit` for the dismiss. The enter should be ~1.25-1.5x the exit duration.
+This gives new content time to settle while old content clears quickly.
+
+```css
+/* Example: dropdown menu */
+.dropdown {
+  /* Enter: 250ms decelerate — slides in, gently lands */
+  transition: opacity var(--duration-enter) var(--ease-enter),
+              transform var(--duration-enter) var(--ease-enter);
+}
+.dropdown.closing {
+  /* Exit: 200ms accelerate — quick dismissal */
+  transition: opacity var(--duration-exit) var(--ease-exit),
+              transform var(--duration-exit) var(--ease-exit);
+}
+```
+
 ### The 200ms Rule
 
 - Under 100ms: feels instant. Use for color changes, opacity shifts.
@@ -38,7 +118,7 @@ is visual noise that slows perception and drains battery.
 - 300-500ms: feels deliberate. Use for page transitions, complex reveals.
 - Over 500ms: feels slow. Only for dramatic reveals or narrative sequences.
 
-Most UI animations should be 150-250ms. Start there and adjust.
+Most UI animations should use `--duration-enter` (250ms) as the baseline.
 
 ---
 
@@ -68,9 +148,9 @@ distinct from the others.
   font-weight: 600;
   cursor: pointer;
   transition:
-    transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1),
-    box-shadow 0.15s ease,
-    background-color 0.15s ease;
+    transform var(--duration-enter-fast) var(--ease-bounce),
+    box-shadow var(--duration-enter-fast) var(--ease-standard),
+    background-color var(--duration-fast) var(--ease-standard);
   box-shadow: 0 2px 8px hsl(var(--primary-hue), 50%, 40%, 0.2);
 }
 
@@ -85,7 +165,7 @@ distinct from the others.
   /* Press down effect */
   transform: translateY(1px) scale(0.98);
   box-shadow: 0 1px 4px hsl(var(--primary-hue), 50%, 40%, 0.2);
-  transition-duration: 0.05s; /* Instant press feel */
+  transition-duration: var(--duration-instant); /* Instant press feel */
 }
 
 .btn-primary:focus-visible {
@@ -110,9 +190,9 @@ distinct from the others.
   color: var(--primary-default);
   border: 1.5px solid var(--primary-default);
   transition:
-    background 0.2s ease,
-    color 0.2s ease,
-    transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
+    background var(--duration-enter-fast) var(--ease-standard),
+    color var(--duration-enter-fast) var(--ease-standard),
+    transform var(--duration-enter-fast) var(--ease-bounce);
 }
 .btn-ghost:hover {
   background: hsl(var(--primary-hue), 50%, 50%, 0.08);
@@ -184,6 +264,19 @@ distinct from the others.
 
 ## 3. Navigation Feedback
 
+### Fixed Nav Scroll Behavior (Required)
+
+Any fixed/sticky nav MUST add a backdrop on scroll. A transparent nav that stays
+transparent as content scrolls behind it creates unreadable text contrast. This is
+one of the most common bugs in AI-generated UIs.
+
+Requirements:
+- Transparent background at page top
+- On scroll (> ~50px), transition to frosted glass: `backdrop-filter: blur(12px)`
+  with semi-transparent background and subtle bottom border or shadow
+- Smooth transition (300ms) between states
+- See the "Shrinking Header" pattern in Section 8 for implementation
+
 ### Menu Item Hover
 
 ```css
@@ -191,7 +284,7 @@ distinct from the others.
   position: relative;
   padding: 0.5rem 0;
   color: var(--text-secondary);
-  transition: color 0.15s ease;
+  transition: color var(--duration-fast) var(--ease-standard);
 }
 .nav-item::after {
   content: '';
@@ -199,7 +292,8 @@ distinct from the others.
   bottom: 0; left: 50%;
   width: 0; height: 2px;
   background: var(--accent-default);
-  transition: width 0.2s ease, left 0.2s ease;
+  transition: width var(--duration-enter-fast) var(--ease-enter),
+              left var(--duration-enter-fast) var(--ease-enter);
 }
 .nav-item:hover {
   color: var(--text-primary);
@@ -571,7 +665,8 @@ When content changes (tab switch, data update), cross-fade:
 </script>
 
 {#key $page.url.pathname}
-  <main in:fade={{ duration: 200, delay: 100 }} out:fade={{ duration: 100 }}>
+  <!-- Asymmetric: enter is longer (250ms) than exit (150ms) -->
+  <main in:fade={{ duration: 250, delay: 100 }} out:fade={{ duration: 150 }}>
     {@render children()}
   </main>
 {/key}
@@ -581,6 +676,104 @@ When content changes (tab switch, data update), cross-fade:
 
 Navigate forward: content slides in from right. Navigate back: content slides in from left.
 Track navigation direction via a store.
+
+### Spring-Based Modal / Dialog
+
+Modals and dialogs use physically-modeled spring animation for a natural, responsive
+feel. The spring curve overshoots slightly on enter, giving the dialog a sense of
+weight and arrival. Exit is quick and decisive — no spring, just accelerate out.
+
+```svelte
+<!-- Modal.svelte -->
+<script>
+  let { open = $bindable(false), children } = $props();
+
+  function handleBackdropClick(e) {
+    if (e.target === e.currentTarget) open = false;
+  }
+</script>
+
+{#if open}
+  <!-- Backdrop: fast fade enter, faster fade exit -->
+  <div
+    class="modal-backdrop"
+    onclick={handleBackdropClick}
+    role="dialog"
+    aria-modal="true"
+    in:fade={{ duration: 250 }}
+    out:fade={{ duration: 150 }}
+  >
+    <!-- Dialog: spring enter, accelerate exit -->
+    <div
+      class="modal-panel"
+      in:scale={{ start: 0.92, duration: 400, easing: cubicOut }}
+      out:scale={{ start: 0.95, duration: 200 }}
+    >
+      {@render children()}
+    </div>
+  </div>
+{/if}
+
+<style>
+  .modal-backdrop {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: hsl(0, 0%, 0%, 0.5);
+    backdrop-filter: blur(4px);
+    z-index: 1000;
+  }
+  .modal-panel {
+    background: var(--base-100);
+    border-radius: 1rem;
+    padding: 2rem;
+    max-width: min(90vw, 32rem);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    /* Spring easing via CSS for any additional transitions */
+    transition: transform var(--duration-enter-slow) var(--ease-spring);
+  }
+</style>
+```
+
+**CSS-only spring modal** (for simpler cases without Svelte transitions):
+
+```css
+.modal-panel {
+  /* Enter: spring — overshoots slightly, settles naturally */
+  animation: modal-spring-in var(--duration-enter-slow) var(--ease-spring) forwards;
+}
+.modal-panel.closing {
+  /* Exit: accelerate out — quick, decisive dismissal */
+  animation: modal-spring-out var(--duration-exit-slow) var(--ease-exit) forwards;
+}
+
+@keyframes modal-spring-in {
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+@keyframes modal-spring-out {
+  from {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.95) translateY(5px);
+  }
+}
+```
+
+The spring curve `--ease-spring: cubic-bezier(0.22, 1.4, 0.36, 1)` creates a
+slight overshoot (the `1.4` exceeds the normal `1.0` endpoint), giving dialogs
+a physical weight that flat easing lacks.
 
 ---
 
@@ -595,7 +788,7 @@ When a user clicks any interactive element, it should feel like pressing a physi
 ```css
 .pressable:active {
   transform: scale(0.97);
-  transition: transform 0.05s ease;
+  transition: transform var(--duration-instant) var(--ease-standard);
 }
 ```
 
@@ -605,7 +798,7 @@ Elements that are dragged or stretched return to position with a spring animatio
 
 ```css
 .bounce-back {
-  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: transform var(--duration-enter-slow) var(--ease-bounce);
 }
 ```
 
@@ -616,7 +809,8 @@ picked up:
 
 ```css
 .card-lift {
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: transform var(--duration-enter-fast) var(--ease-enter),
+              box-shadow var(--duration-enter-fast) var(--ease-enter);
 }
 .card-lift:hover {
   transform: translateY(-4px) scale(1.01);
@@ -751,7 +945,7 @@ Header that toggles between transparent (at top) and solid (on scroll):
     position: fixed; top: 0; left: 0; right: 0;
     z-index: 100;
     padding: 1.5rem 2rem;
-    transition: all 0.3s ease;
+    transition: all var(--duration-enter) var(--ease-standard);
     background: transparent;
   }
   .header.scrolled {
@@ -812,28 +1006,36 @@ NEVER animate: `width`, `height`, `margin`, `padding`, `border-width`, `top/left
 
 ## 11. Easing and Timing Reference
 
-### Standard Curves
+### Emphasized Easing Curves (MD3-Derived)
 
-| Name | CSS Value | Use For |
-|------|-----------|---------|
-| **Smooth out** | `cubic-bezier(0.22, 1, 0.36, 1)` | Most UI transitions |
-| **Bouncy** | `cubic-bezier(0.34, 1.56, 0.64, 1)` | Playful enters, toggles |
-| **Snap** | `cubic-bezier(0.68, -0.55, 0.27, 1.55)` | Quick state changes |
-| **Material** | `cubic-bezier(0.2, 0, 0, 1)` | Android-style motion |
-| **Elastic** | `cubic-bezier(0.68, -0.6, 0.32, 1.6)` | Springy, game-like |
-| **Sharp in** | `cubic-bezier(0.4, 0, 1, 1)` | Elements leaving view |
-| **Decelerate** | `cubic-bezier(0, 0, 0.2, 1)` | Elements entering view |
-| **Linear** | `linear` | Only for progress bars, clocks |
+Use these as your primary curves. They replace generic `ease` and `ease-in-out`
+throughout the codebase. The key insight: **enter and exit are different motions**
+and should use different curves.
 
-### Duration Guidelines
+| Token | CSS Value | Use For |
+|-------|-----------|---------|
+| **`--ease-enter`** | `cubic-bezier(0.2, 0, 0, 1)` | Elements appearing: modals, dropdowns, reveals, fade-ins |
+| **`--ease-exit`** | `cubic-bezier(0.3, 0, 0.8, 0.15)` | Elements leaving: dismiss, close, fade-outs |
+| **`--ease-standard`** | `cubic-bezier(0.2, 0, 0, 1)` | State changes: hover, color, opacity (no enter/exit) |
+| **`--ease-bounce`** | `cubic-bezier(0.34, 1.56, 0.64, 1)` | Playful enters, toggles, switches |
+| **`--ease-spring`** | `cubic-bezier(0.22, 1.4, 0.36, 1)` | Modals, dialogs, spring-feel elements |
+| **`--ease-snap`** | `cubic-bezier(0.68, -0.55, 0.27, 1.55)` | Quick decisive state changes |
+| **Linear** | `linear` | Only for progress bars, clocks, shimmer loops |
 
-| Action | Duration | Easing |
-|--------|----------|--------|
-| Button hover/active | 50-150ms | Smooth out |
-| Tooltip appear | 100-200ms | Decelerate |
-| Dropdown open | 150-250ms | Bouncy |
-| Modal open | 200-300ms | Smooth out |
-| Page transition | 200-400ms | Smooth out |
-| Skeleton shimmer | 1500ms | ease-in-out (loop) |
-| Scroll reveal | 400-600ms | Smooth out |
-| Counter animation | 1000-2000ms | ease-out cubic |
+**NEVER** use bare `ease`, `ease-in`, `ease-out`, or `ease-in-out` — always use
+the tokens above. Generic curves feel flat and lifeless compared to emphasized curves.
+
+### Duration Guidelines (Asymmetric)
+
+Enter durations are longer than exits. Use the token, not a raw millisecond value.
+
+| Action | Enter | Exit | Easing (Enter / Exit) |
+|--------|-------|------|-----------------------|
+| Button hover/active | `--duration-fast` | `--duration-instant` | `--ease-standard` / `--ease-standard` |
+| Tooltip appear/dismiss | `--duration-enter-fast` | `--duration-exit-fast` | `--ease-enter` / `--ease-exit` |
+| Dropdown open/close | `--duration-enter` | `--duration-exit` | `--ease-enter` / `--ease-exit` |
+| Modal open/close | `--duration-enter-slow` | `--duration-exit-slow` | `--ease-spring` / `--ease-exit` |
+| Page transition | `--duration-enter-slow` | `--duration-exit` | `--ease-enter` / `--ease-exit` |
+| Skeleton shimmer | 1500ms (loop) | — | ease-in-out |
+| Scroll reveal | `--duration-enter-dramatic` | — | `--ease-enter` |
+| Counter animation | 1000-2000ms | — | `--ease-enter` |
