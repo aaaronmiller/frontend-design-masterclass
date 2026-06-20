@@ -91,6 +91,14 @@ construction, dark theme construction (independent rules), theme selector with b
 themes (warm/cool/mono/high-contrast variants), semantic color tokens, CSS custom
 property system, WCAG contrast compliance.
 
+### 2026 Web Design Theme Selection
+**Triggers**: "theme direction", "visual theme", "web design theme", "2026 design",
+"style options", "aesthetic options", "theme examples", "design themes"
+**Load**: `references/web-design-themes.md`
+**Provides**: 20 complete 2026 web design theme references with palettes, typography,
+imagery, animation, navigation, layout, card, spacing, pattern, anti-pattern, variant,
+and best-fit guidance.
+
 ### Imagery, Textures, and Backgrounds
 **Triggers**: "image", "background", "texture", "photo", "illustration", "dithering",
 "overlay", "parallax background", "hero image", "Nano Banana", "duotone", "pattern"
