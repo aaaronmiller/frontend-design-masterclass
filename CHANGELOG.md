@@ -29,6 +29,8 @@ All notable changes to this project will be documented in this file.
 - **Spring-Based Modal** pattern in `references/microanimations.md` — physically-modeled spring animation for dialogs with CSS-only and Svelte variants
 - **Motion System** checklist section in SKILL.md Pre-Delivery Checklist — verifies token usage, asymmetric timing, spring modals
 
+- Added 2026 web design theme reference material and linked it from the skill loading protocol.
+
 ### Changed
 - Version bump to v2.2
 - Anti-Slop REJECT list expanded with card-within-card nesting, decorative status bars, floating card clusters, style name copy leakage
@@ -41,3 +43,6 @@ All notable changes to this project will be documented in this file.
 - Button, ghost button, nav, header, haptic pattern code examples all use `--duration-*` and `--ease-*` tokens
 - Tilt card in `references/visual-kinetics.md` updated to use motion tokens
 - SKILL.md Section 6 (Microanimations) updated to mandate motion tokens and asymmetric timing
+
+### Fixed
+- Normalized web design theme reference line endings for consistent sync diffs.
