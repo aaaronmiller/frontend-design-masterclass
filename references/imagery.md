@@ -106,6 +106,22 @@ Serve different sizes for different viewports. Never send a 2400px image to a 37
 | Texture/pattern | 256-512px (tiled) | 5-15KB | eager |
 | Icon/accent | SVG or 64-128px | 5KB | eager |
 
+### Image Dimension Verification (Critical)
+
+LLMs are consistently bad at image placement. Common failures:
+- **Wrong aspect ratio**: Placing a 16:9 image in a 1:1 container, causing crop/stretch
+- **Subject cutoff**: Hero images where the subject's head or key element is clipped
+- **Inverted visual weight**: Empty sky/ceiling at top, important content cropped at bottom
+- **Object-fit misuse**: `object-fit: cover` without checking what gets cropped
+
+After placing any image, verify:
+1. The subject/focal point is visible and centered within the container
+2. The aspect ratio matches the container's proportions (or `object-fit` is used
+   correctly with an appropriate `object-position`)
+3. Visual weight distribution is correct — don't leave vast empty space where the
+   eye should be anchored
+4. On mobile, the crop still shows the important parts of the image
+
 ---
 
 ## 3. Background Image Composition

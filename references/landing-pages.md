@@ -82,6 +82,26 @@ The hero section sits above the fold and contains 5 critical elements in priorit
 5. **Trust Signal**: Logo bar, testimonial snippet, metric ("10,000+ teams"), or
    social proof element. Appears last, often as a scrolling marquee or grid.
 
+### The Composition Rule
+
+The first viewport must read as ONE unified composition — not a dashboard of cards,
+not a collection of widgets. Every element in the hero serves the single narrative.
+
+**Brand Test**: After designing the hero, mentally remove the nav and logo. If the
+remaining design could belong to any other product, the branding is too weak. The hero
+should feel inseparable from its brand through typography choices, color, imagery, and
+voice.
+
+### Design Constraints (Defaults)
+
+Apply these unless the user specifies otherwise:
+- 1 H1 headline (the main title — there can only be one)
+- No more than 6 sections total on the page
+- 2 typefaces maximum (display + body, with an optional mono for code)
+- 1 accent color (derive supporting colors via color theory, not by adding more)
+- 1 primary CTA above the fold (secondary CTA as ghost button is acceptable)
+- Full-bleed sections preferred over centered card columns
+
 ### Spacing and Rhythm
 
 - Hero height: `min-height: 100vh` or `min-height: 90vh` with a visible peek of the
@@ -210,6 +230,11 @@ refined across decades of web design. Select ONE and commit fully.
 - Cursor blink animation on interactive elements
 
 **When to use**: Developer tools, CLI products, cybersecurity, tech blogs.
+
+**WARNING**: This style is a trap. Across ALL major LLMs, terminal-themed outputs are
+consistently the worst-performing style. The aesthetic is so constrained that models
+produce near-identical, mediocre results every time. Only use when explicitly requested
+by the user and even then, keep it to accent elements rather than the full page.
 
 ---
 
@@ -395,9 +420,22 @@ If the hero is full-viewport, indicate more content exists below:
 
 ## 8. Common Anti-Patterns (Reject These)
 
+- **Card Sickness**: The #1 LLM frontend failure. Every section wrapped in a
+  rounded-corner card with shadow, turning a landing page into a dashboard. Cards on
+  homepages are almost never needed. Use full-bleed sections, typographic hierarchy,
+  and whitespace instead. If you see a card-within-a-card, the design has failed.
 - **The Generic SaaS**: Purple gradient, "Transform your workflow", stock photo of
   people in a meeting, centered text, rounded card with shadow. This is the default
   output of every AI design tool. Fight it.
+- **Pill Cluster Slop**: 3-5 pill-shaped badges ("AI Powered", "New", "Enterprise
+  Ready") floating near the hero that add no functional value. These are the single
+  clearest tell that UI was vibe-coded by an LLM. Remove them all, fix layout shifts.
+- **The Stat Strip**: A row of metrics ("10K+ users | 99.9% uptime | 50ms latency")
+  that appears on every generated page regardless of context. Unless these numbers are
+  meaningful differentiators, delete them.
+- **Eyebrow Title Spam**: Small muted text above every heading ("Our Approach",
+  "Why Choose Us", "The Platform"). If your headline needs a preface to make sense,
+  rewrite the headline.
 - **The Kitchen Sink**: Cramming features, pricing, testimonials, FAQ, and a contact
   form above the fold. Pick ONE message.
 - **The Orphaned CTA**: A button floating with no supporting context. CTAs need
@@ -408,3 +446,22 @@ If the hero is full-viewport, indicate more content exists below:
   splitting attention. Commit to ONE hero message.
 - **The Wall of Logos**: 30 partner logos in a static grid. Instead, use a slow-scroll
   marquee with 8-10 carefully selected logos.
+- **Style-Name Copy Leakage**: When the design style bleeds into the actual page copy.
+  A brutalist page should NOT say "A brutal, uncompromising platform." An organic flow
+  page should NOT say "Flowing naturally into your workflow." The aesthetic is visual,
+  not verbal.
+- **Aggressive Hover Inflation**: Hover effects that dramatically scale elements,
+  add thick borders, or shift layout. Cards that grow 10% on hover cause layout thrash.
+  Prefer subtle opacity, color, or shadow changes.
+- **Missing Hover States**: The opposite problem — elements that look interactive but
+  have no hover feedback at all. This is the easiest way to spot unchecked AI output.
+  If it looks clickable, it MUST respond to hover.
+- **Image Dimension Crimes**: Images placed with wrong aspect ratios, bad crops that
+  cut off subjects, or excessive empty space in hero imagery. Always verify image
+  placement produces good visual weight distribution.
+- **The Three Nav Items**: LLMs default to exactly 3 items in the top nav on every
+  single generation. Vary nav structure to match the actual site needs — 4-6 items
+  is normal for real products. The cookie-cutter 3-item nav is an AI fingerprint.
+- **Identical Layout Syndrome**: Generating multiple pages that are structurally
+  identical with only color swaps. If doing multiple generations or pages, each must
+  have a meaningfully different layout structure — not the same grid with different hues.

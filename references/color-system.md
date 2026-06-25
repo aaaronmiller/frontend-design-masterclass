@@ -413,6 +413,10 @@ These should be related to the palette through shared characteristics.
 - **The Default Purple**: `hsl(270, 70%, 55%)` is the single most overused color in
   AI-generated interfaces. NEVER use it as primary. Shift to indigo (230-245) or
   violet-blue (250-260) if you need that family.
+- **The Purple-Blue Gradient**: Purple-to-blue gradients on white backgrounds are the
+  #1 "this was AI-generated" tell. Half of all LLM models default to this exact scheme
+  unprompted. If you see purple-blue gradient in your output, immediately replace with
+  a palette derived from the product's actual brand or context.
 - **The Rainbow Dashboard**: Using 8+ unrelated colors for chart series.
   Instead, use 3-4 shades/tints of 2 hues.
 - **The Neon Assault**: Full-saturation colors everywhere. Reserve S:80%+ for
