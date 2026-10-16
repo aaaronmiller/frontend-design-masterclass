@@ -4,7 +4,7 @@ description: "Builds distinctive frontend UI with SvelteKit/Bun/Hono. Triggers o
 license: MIT
 ---
 
-# Frontend Design Masterclass v2.3
+# Frontend Design Masterclass v2.4
 
 Build interfaces that resonate, not just render. This skill enforces bold, intentional
 design with a modern high-performance stack. Every pixel must justify its existence.

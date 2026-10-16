@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+## [v2.4] — 2026-10-16 — Theo batch (10 transcripts, Oct 2–16 2026)
+
+Source: 10 full transcripts (`/home/cheta/code/theo-transcripts/raw/`), mined one video at a
+time with per-video notes + adversarial review after each set of 4
+(`/home/cheta/code/theo-transcripts/notes/`, see INDEX.md). Zero-yield: vRS2leJLAI0,
+ND_kRgU_WlY, nYA0yASgaZI (pricing/infra topics, no design content).
+
+### Added
+- AI-Generation Loop (§7): small prompts, screenshot verdicts, separate copy pass, tasteful-model draft one, model routing, fix-vs-mocks branch
+- Design-Skill Lever (§7): unskilled failure signature (filler text + gross fonts + identical nav), one-skill-at-a-time, top-nav test
+- Async-Agent Dashboards (§6): inbox-zero sidebar, dim-working/surface-waiting, queued-steer, disconnect-toggle vs destructive-remove
+- No redundant title stacks (§5b + QA #5); bold-lead report copy (§5b)
+- Flavor-of-slop + novel entrances (§9 Variety Test); decorative-AI-button ban (QA)
+- `:root:has()` recalc ban (§8 checklist); streaming-render rules, 8ms/120Hz budget, docked-anchor (microanimations.md)
+- Bar orientation, sort-by-extreme + brand series colors, hover-compare overlay (data-visualization.md)
+- Inversion-is-not-dark-theme (color-system.md §5)
+
 
 ## [v2.3] — 2026-10-16
 
