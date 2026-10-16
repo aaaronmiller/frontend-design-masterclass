@@ -4,7 +4,7 @@ description: "Builds distinctive frontend UI with SvelteKit/Bun/Hono. Triggers o
 license: MIT
 ---
 
-# Frontend Design Masterclass v2.2
+# Frontend Design Masterclass v2.3
 
 Build interfaces that resonate, not just render. This skill enforces bold, intentional
 design with a modern high-performance stack. Every pixel must justify its existence.
@@ -208,9 +208,46 @@ systems (Lucide, Heroicons) with consistent viewBox, cursor-pointer on every cli
 element, stable hover states using color/opacity (not layout-disrupting transforms),
 full-bleed sections with meaningful whitespace, typography-driven visual hierarchy.
 
-## 5. Design Thinking (Pre-Code)
+### Second-Wave Tell Audit (post-Anthropic, Jun 2026)
 
-Before writing code, commit to a direction:
+The official Anthropic `frontend-design` skill (Jun 2026 rewrite) names the tells its own
+models default to. These patterns are now *fingerprinted*: any reviewer — human or scanner —
+reads them as "Claude made this" rather than as brand choices. Treat every one below as
+banned-by-default. A ban is lifted only when the brief pins that exact look AND you record
+the override (what the brief said, verbatim) next to the decision.
+
+- **Cream + terracotta editorial**: warm cream background (near `#F4F1EA`) with high-contrast
+  serif display and terracotta/warm-clay accent (near `#D97757`). The single most
+  fingerprinted palette on the web. If the brief wants "warm editorial," spend the boldness
+  elsewhere: pick ink-on-paper `#FFFFFF`/charcoal, or push the accent to ochre/olive/burgundy.
+- **Near-black + single acid accent**: tinted near-black (`#0B0B0B`, `#111`) with one bright
+  acid-green or vermilion highlight. Reads as "edgy AI startup" regardless of subject.
+  Prefer deep navy/charcoal with a *two-stop* accent system (primary + supporting tone).
+- **Broadsheet cargo-cult**: hairline rules, zero border-radius everywhere, dense
+  newspaper-like columns on non-editorial content. Typography-driven layout is a technique,
+  not a costume — earn it with real long-form content or drop it.
+- **Template chrome**: tracked-out ALL-CAPS eyebrow label above *every* heading; meta strings
+  joined with middle dots (`A · B · C`); labels built as `WORD — fragment` with a spaced em
+  dash; a monospace face for small data labels by default; a `→` appended to every link and
+  button. Each is legitimate once; all five together is a signature.
+- **Single-word headline accent**: one word in italic/bold/a different color inside an
+  otherwise neutral headline. The commonest typographic tell; style the whole line or use
+  scale/weight contrast instead.
+- **Sequential numbering of non-sequences**: `01 / 02 / 03` markers on content that is not
+  actually a stepped process or timeline. Before numbering, check the content really is
+  a sequence.
+
+**Hex audit.** Before delivery, search the stylesheet for `#F4F1EA` ±3% (cream tell),
+`#D97757` ±10% (terracotta tell), `#0B0B0B`/`#111111` (tinted-black tell). Any hit must
+carry a recorded brief-override or be re-tokened.
+
+**Why this section exists alongside the Variety Test (Section 9):** the Variety Test stops
+*your own* outputs from converging; this audit stops your outputs from converging with
+*every other Claude user's*. Both gates must pass.
+
+full-bleed sections with meaningful whitespace, typography-driven visual hierarchy.
+
+Before writing code, commit to a direction — **in writing, before code**:
 
 1. **Purpose**: What does this solve? Who uses it?
 2. **Product Type**: Classify using the table in Section 2A for initial direction.
@@ -224,6 +261,38 @@ Before writing code, commit to a direction:
 6. **The Memorable Detail**: Identify ONE element the user will remember.
 7. **Complexity Match**: Maximalist = elaborate code. Minimalist = surgical precision.
 
+Write the plan down as a compact token system before touching code:
+**Color** (4–6 named values), **Type** (faces and their roles), **Layout** (one-sentence
+concept plus a quick ASCII wireframe with alignment guidance: left, center, or
+justified — and why), **Principles** (what makes this page unique).
+Then **review the plan against the brief before building**: if any part reads like the
+generic default you would produce for a *similar* prompt (run the self-similarity test —
+strip product nouns and ask whether the plan still fits; if yes, it is generic), revise
+that part, state what changed and why, and only then write code. See the Second-Wave
+Tell Audit above for the patterns this review must catch.
+
+## 5. Design Thinking (Pre-Code)
+
+## 5b. Copy Is Design (words are load-bearing)
+
+Copy makes a page feel as templated as its palette. Bring the same minimalism to words
+as to spacing: every string must earn its place, do exactly one job, and sound like the
+product — never like the system that built it.
+
+- **User's words, not the system's.** Name things by what users understand, not how the
+  stack works. Plain verbs, sentence case, no filler. Match tone to brand and audience.
+- **Active, specific CTAs.** A button says what happens: "Save changes," not "Submit."
+  One action keeps one name through the whole flow ("Publish" → toast says "Published").
+- **No cleverness tax.** Specific and legible beats witty. Never let a style name leak
+  into copy (see REJECT list); never narrate the design to the reader.
+- **Failure and emptiness direct, never decorate.** Errors state what went wrong and how
+  to fix it, in the interface's voice — no apologies, no vagueness. Empty states invite
+  the next action.
+- **Copy audit (add to Post-Generation QA):** read every headline aloud. If any line could
+  sit unchanged on a competitor's page, rewrite it with one concrete noun from the brief.
+
+
+
 ## 6. Universal Aesthetic Mandates
 
 ### Typography
@@ -234,10 +303,63 @@ NEVER converge on Space Grotesk across generations.
 
 ### Color (The Structured Palette)
 Build a 3-group palette: Base Tones, Primary Tones, Accent Tones.
-See `references/color-system.md` for the complete system.
+**Author every token in `oklch()`, not hex or hsl.** sRGB is not perceptually uniform, so a
+hand-built hsl ramp comes out visually uneven across hues; OKLCH's L channel is uniform, which
+is what makes accessible ramps and one-axis dark mode possible.
+See `references/color-system.md` for the complete system, the ramp recipe, the sRGB fallback,
+and the P3 progressive enhancement.
 Light themes: hard shadows, heavy typography, thin lines.
-Dark themes: colored glows, off-white text (#E8E8E8), subtle surface gradients.
-NEVER use pure purple (H: 270-280) as primary. Shift to indigo, teal, coral, or emerald.
+Dark themes: colored glows, off-white text `oklch(0.92 0.005 285)`, subtle surface gradients.
+### Verify against the Front-End Checklist
+
+483 rules across accessibility, SEO, performance, HTML, CSS, JavaScript, images, security,
+testing, privacy and i18n. Use it rather than recalling best practice from memory, which is
+where stale advice comes from.
+
+**Call it on demand — do not register it globally.** It is a remote HTTP endpoint, so there
+is no local process and nothing to keep resident. Invoking it directly costs nothing when
+unused, whereas a global MCP registration puts 11 tool schemas in the context of every
+session, frontend or not.
+
+```bash
+curl -sX POST https://mcp.frontendchecklist.io \
+  -H 'Content-Type: application/json' -H 'Accept: application/json, text/event-stream' \
+  -d '{"jsonrpc":"2.0","id":1,"method":"tools/call",
+       "params":{"name":"review_code","arguments":{"code":"<paste>","language":"css"}}}'
+```
+
+Swap `review_code` for any of: `audit_url` (a running page), `get_workflow` (ordered
+checklist for a phase), `search_rules`, `get_rule`, `check_rule`, `fix_rule`, `explain_rule`,
+`list_categories`, `get_checklist_rules`, `get_quick_reference`.
+
+If you would rather have it as tools, register it **project-scoped** in the frontend repo
+only, so it is absent from every other session:
+
+```bash
+claude mcp add --scope project --transport http frontend-checklist https://mcp.frontendchecklist.io
+```
+
+Pick the workflow from the work in hand:
+
+| situation | workflow slug |
+| --- | --- |
+| about to ship | `launch-checklist` |
+| page feels slow | `core-web-vitals`, then `performance-quick-wins` |
+| marketing or content page | `seo-audit` |
+| any public-facing UI | `accessibility-essentials` |
+| markup review | `html-foundations` |
+| heavy imagery | `image-optimization` |
+| forms, auth, user data | `security-audit`, `privacy-and-consent` |
+| full pre-release sweep | `comprehensive-audit` |
+
+Rules also render on the site, e.g. <https://frontendchecklist.io/rules/css/color-oklch>.
+
+Colour tokens belong in `oklch()`, not hex or hsl: sRGB is not perceptually uniform, so an
+hsl ramp is visually uneven across hues while OKLCH's L channel is not. Chrome 111+,
+Firefox 113+, Safari 15.4+; emit an `hsl()` fallback first if older browsers are in scope.
+
+This is a verifier, not a design system — it will not tell you a layout is generic. Run it
+after the design decisions are made.
 
 ### Imagery and Texture
 Never use flat, solid-color backgrounds for hero sections.
@@ -302,7 +424,8 @@ Run this before delivering any UI code. Every item is a known failure mode.
 - [ ] No orphan pills: remove all decorative pill badges that serve no function
 - [ ] No stat strips or eyebrow titles above headlines
 - [ ] Images have correct dimensions and aspect ratios (no bad crops or cutoffs)
-- [ ] Design style name does NOT leak into the page copy
+- [ ] Second-wave tells cleared: no cream `#F4F1EA` + terracotta `#D97757` default, no tinted-black `#0B0B0B`/`#111` + single acid accent, no broadsheet costume on non-editorial content
+- [ ] Template chrome varied: not every heading carries an ALL-CAPS eyebrow; no `A · B · C` meta strings, `WORD — fragment` labels, default mono data labels, or `→` on every link by habit
 
 ### Interaction
 - [ ] Every clickable element has `cursor-pointer`
@@ -374,8 +497,10 @@ After generating any UI, run a quick vibe-check:
 2. **Pill audit**: Are there decorative pills/badges? Remove them.
 3. **Hover audit**: Does every clickable-looking element have a hover state?
 4. **Nav audit**: Does the nav have exactly 3 items by default? Vary it.
-5. **Copy audit**: Did the design style name leak into the copy?
+5. **Copy audit**: Did the design style name leak into the copy? Could any headline sit unchanged on a competitor's page? Rewrite with a concrete noun from the brief.
 6. **Image audit**: Are images cropped correctly with good visual weight?
 7. **Color audit**: Is it defaulting to purple-blue gradients?
+8. **Tell audit**: Cream + terracotta? Tinted black + acid accent? Broadsheet costume? Template chrome (eyebrows everywhere, `·` strings, `→` on every link, single-word headline accent, numbered non-sequences)? Any hit needs a recorded brief-override.
+9. **Screenshot audit**: Screenshot the page and review the image, not the code — a picture is worth 1000 tokens. Check motion restraint (one orchestrated moment, not scattered reveals) and confirm the memorable detail lands.
 
 Claude is capable of extraordinary creative work. Commit fully to the vision.

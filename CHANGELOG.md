@@ -4,6 +4,21 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [v2.3] — 2026-10-16
+
+### Added (from official Anthropic `frontend-design` skill, Jun 2026 rewrite + outside critique)
+- **Second-Wave Tell Audit** (SKILL.md §4): six banned-by-default patterns with brief-override rule — cream `#F4F1EA` + terracotta `#D97757`, tinted black + single acid accent, broadsheet cargo-cult, template chrome (eyebrows/`·` strings/`WORD — fragment`/default mono labels/`→` everywhere), single-word headline accent, numbered non-sequences. Includes pre-delivery hex audit. Sources: anthropics/skills + anthropics/claude-code plugin docs, HN thread 49330562, New Yorker "A.I.-Design Aesthetic," Ken Imoto rewrite analysis, capitalandcompute "fix-ai-slop" (DESIGN.md + ignore-comment practice).
+- **Written-plan + self-similarity review** (§5): compact token system (Color/Type/Layout-ASCII-wireframe/Principles) mandatory before code; strip-nouns genericness test with stated what-changed-and-why before building.
+- **§5b Copy Is Design**: user's-words/active-CTAs/no-cleverness/failure-directness rules + read-aloud copy audit.
+- **Pre-Delivery Checklist**: second-wave tell + template-chrome items; Post-Generation QA gains Tell audit (#8) and Screenshot audit (#9, incl. motion-restraint check).
+- **Fingerprinted Palette** anti-pattern (`references/color-system.md` §10).
+
+### Ported (custom-skills copy was ahead — one-way sync source)
+- OKLCH-first Color mandate (§6) + full `references/color-system.md` §1 foundation rewrite (ramps, one-axis dark mode, contrast caveat, fallback, P3).
+- Front-End Checklist verifier section (§6) with on-demand curl + project-scoped MCP guidance.
+- Off-white `oklch(0.92 0.005 285)` dark-mode text correction.
+
+
 ### Added
 - **Card Sickness** subsection in Anti-Slop Mandate (SKILL.md Section 4) — explicit anti-card rules, the #1 LLM frontend failure mode
 - **Pill & Clutter Sickness** subsection — rules against decorative pills, stat strips, eyebrow titles, and icon rows
