@@ -288,6 +288,11 @@ product — never like the system that built it.
 - **Failure and emptiness direct, never decorate.** Errors state what went wrong and how
   to fix it, in the interface's voice — no apologies, no vagueness. Empty states invite
   the next action.
+- **No redundant title stacks.** AI output ships filler subtext under headings and
+  subtitle echoes of the title above them ("full of useless subtext"). Above the fold,
+  every heading gets ONE line — title or subtitle, never both saying the same thing.
+  Redundant stacks read as cringe, not completeness. Reclaim the vertical space for
+  content (compress the top nav while there).
 - **Copy audit (add to Post-Generation QA):** read every headline aloud. If any line could
   sit unchanged on a competitor's page, rewrite it with one concrete noun from the brief.
 
@@ -409,6 +414,24 @@ use `break-inside: avoid` on cards/charts/tables.
 7. **Validate**: Run the Pre-Delivery Checklist (Section 8). Fix all failures.
 8. **Iterate**: Compare against the aesthetic vision. Adjust until it pops.
 
+### AI-Generation Loop (small prompts, screenshot verdicts)
+
+When iterating UI with an AI model, many small steers beat one batched mega-prompt —
+the loop matters more than the model's taste. A weaker model inside a tight human loop
+out-designs a stronger model fired once and accepted (Theo, "Slopolytics" build, Oct 2026:
+Astra is "way, way, way, way worse at design than the anthropic models," yet the
+in-the-loop result was better — "design is all about how users interact with and
+perceive things," and only the loop exercises perception).
+
+- **Shrink the batch.** Send one change at a time; watch it land before steering the next.
+  Twenty-item change lists regress; single-issue turns compound.
+- **Screenshot + blunt verdict.** The highest-bandwidth steering signal is a screenshot
+  plus accept/reject: "not acceptable," "vertical bars make it all fit fine on a normal
+  screen." Picture first, words second.
+- **Separate the copy pass.** Layout first, then a dedicated cheap pass: "make the copy
+  better." Never bundle wording into structural prompts.
+- **Reserve the tasteful model for draft one — route UI passes through taste, logic through anything.** Models differ in visual taste more than in correctness: one can be functionally right yet produce "sinfully ugly" generic UI from the same prompt another renders beautifully (Theo, Muse-vs-Claude test, Oct 2026). Refinement loop runs on the fastest/cheapest model that follows instructions.
+
 ## 8. Pre-Delivery Checklist
 
 Run this before delivering any UI code. Every item is a known failure mode.
@@ -473,6 +496,7 @@ Run this before delivering any UI code. Every item is a known failure mode.
 - [ ] Images use modern formats (WebP/AVIF) with width/height set
 - [ ] No layout thrashing from scroll event handlers
 - [ ] Print stylesheet hides nav/footer, forces white background
+- [ ] No broad selectors forcing full style recalc: never `:root:has(...)`, universal selectors, or unscoped `:has()` on mutation-heavy subtrees — one root `:has()` cost 24ms per DOM change in a real audit (Theo, Claude perf thread, Oct 2026). Scope selectors to the smallest subtree that needs them.
 
 ## 9. Constraint
 
@@ -490,6 +514,7 @@ If you generate multiple pages or redesign within a session, each output MUST ha
 Identical structure with different colors is the hallmark of a model with too few
 internal templates. You have the capability to produce genuinely different designs.
 Use it.
+Novelty counts: a distinct visual flavor — even from a weaker hand — beats shipping the same recognizable "distillation" look every model converges on (Theo on a generic-but-novel UI: "a different flavor of slop... it doesn't taste like yet another claude distillation"). Different must mean *unrecognizable as AI output*, not just rearranged.
 
 ### Post-Generation QA
 After generating any UI, run a quick vibe-check:
@@ -497,7 +522,7 @@ After generating any UI, run a quick vibe-check:
 2. **Pill audit**: Are there decorative pills/badges? Remove them.
 3. **Hover audit**: Does every clickable-looking element have a hover state?
 4. **Nav audit**: Does the nav have exactly 3 items by default? Vary it.
-5. **Copy audit**: Did the design style name leak into the copy? Could any headline sit unchanged on a competitor's page? Rewrite with a concrete noun from the brief.
+5. **Copy audit**: Did the design style name leak into the copy? Could any headline sit unchanged on a competitor's page? Rewrite with a concrete noun from the brief. Any redundant title+subtitle stack saying the same thing? Cut to one line.
 6. **Image audit**: Are images cropped correctly with good visual weight?
 7. **Color audit**: Is it defaulting to purple-blue gradients?
 8. **Tell audit**: Cream + terracotta? Tinted black + acid accent? Broadsheet costume? Template chrome (eyebrows everywhere, `·` strings, `→` on every link, single-word headline accent, numbered non-sequences)? Any hit needs a recorded brief-override.

@@ -100,6 +100,17 @@ Isolates the active series visually.
 that follows mouse coordinates. Style with `backdrop-filter: blur(8px)`, the glassmorphic
 treatment from the visual-kinetics reference.
 
+**Bar orientation.** Dense comparisons go vertical so a dashboard fits a normal screen
+width without scrolling ("vertical bars make it all fit fine on a normal screen" — Theo,
+Slopolytics critique). Horizontal bars only when category labels are long enough to need
+the room.
+
+**Hover-compare overlay.** On comparison charts, hovering a non-selected item shows its
+delta against the selected baseline (multiplier/score/cost gap) in the tooltip — the
+comparison is the feature, not a second chart (Theo, Slopolytics: "hovering other models
+will show the gap in score and cost"). Hover targets must stay flicker-free on dense
+views: stable hit areas, opacity/color feedback only, never layout-shifting transforms.
+
 ## Chart Aesthetic Modes
 
 ### "Neon" (Dark Theme)

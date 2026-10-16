@@ -609,6 +609,22 @@ Placeholder shapes that pulse while content loads:
 .skeleton-avatar { height: 48px; width: 48px; border-radius: 50%; }
 ```
 
+### Streaming Render (AI-generated content arriving live)
+
+When content streams in (AI chat, generated tables/code), reveal policy decides whether
+the experience reads as fast or as jank (Theo streaming-taste notes, Oct 2026):
+
+- **Tables and code blocks reveal whole, never cell-by-cell.** Row-by-row table
+  streaming "breaks all the highlighting" and reads as broken; hold the block until
+  complete, then paint once ("I don't want to see the table while it's still being
+  created. I just want to see it when it's done").
+- **Hold titles until their body is ready.** A streamed title followed by a lagging
+  paragraph dangles — delay the header so it lands with its content.
+- **Settle async rows in one paint.** Below-threshold shifts (CLS ~0.008, "good") still
+  read as janky when sibling rows resolve at different times; coordinate list/row
+  settlement into a single update, with reserved space or skeletons so late controls
+  (pickers, selectors) never pop in after the shell.
+
 ### Success/Error State Transitions
 
 After form submission, elements transition to success/error states:
@@ -971,6 +987,22 @@ For 60fps animations, ONLY animate these properties:
 
 NEVER animate: `width`, `height`, `margin`, `padding`, `border-width`, `top/left/right/bottom`,
 `font-size`, `color` (use opacity + overlay instead), `box-shadow` (pre-render both states).
+
+### Frame Budget: 8ms at 120Hz
+
+60fps (16ms) is the floor, not the target. Scroll and stream-animation paths should
+hold an **8ms frame budget** for 120Hz displays (Theo, Claude perf thread: "8
+milliseconds is how long you get per frame at 120 Hz"). If a scroll/stream handler
+can't finish inside 8ms, defer, virtualize, or simplify — the jank is visible on
+every high-refresh screen your investor or user owns.
+
+### Anchor Docked UI, Don't Compute It
+
+Bottom-docked surfaces (composer, chat input, sticky bars) anchor with fixed
+positioning — never JS percent-of-page-height math that chases resizes with repaints
+(Theo: rendering "based on a percentage of page height... rather than a fixed
+location on the bottom" caused visible chasing). Fixed to the edge; let content flow
+above it.
 
 ### `will-change` Usage
 
