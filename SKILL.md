@@ -485,6 +485,7 @@ Run this before delivering any UI code. Every item is a known failure mode.
 - [ ] No orphan pills: remove all decorative pill badges that serve no function
 - [ ] No stat strips or eyebrow titles above headlines
 - [ ] Images have correct dimensions and aspect ratios (no bad crops or cutoffs)
+- [ ] No decorative AI buttons: every model-picker / "AI" entry point is functional and on-brand — a dead or cringe button damages trust more than its absence (Theo: "every time the Gemini button appears in some app... it scares me and is often not functional")
 - [ ] Second-wave tells cleared: no cream `#F4F1EA` + terracotta `#D97757` default, no tinted-black `#0B0B0B`/`#111` + single acid accent, no broadsheet costume on non-editorial content
 
 - [ ] Template chrome varied: not every heading carries an ALL-CAPS eyebrow; no `A · B · C` meta strings, `WORD — fragment` labels, default mono data labels, or `→` on every link by habit
