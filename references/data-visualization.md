@@ -105,6 +105,13 @@ width without scrolling ("vertical bars make it all fit fine on a normal screen"
 Slopolytics critique). Horizontal bars only when category labels are long enough to need
 the room.
 
+**Sort by the informative extreme; skip average lines.** Default-sort data views by the
+most informative end (usually max), not by average — "averages are useless" for
+comparison, and average reference lines obscure the ranking the viewer came for (Theo,
+Slopolytics critique: "sort by the highest option... get rid of average lines").
+Series colors follow the entities shown (brand/logo colors), not the default chart
+palette ("use more logos in colors consistent with the labs").
+
 **Hover-compare overlay.** On comparison charts, hovering a non-selected item shows its
 delta against the selected baseline (multiplier/score/cost gap) in the tooltip — the
 comparison is the feature, not a second chart (Theo, Slopolytics: "hovering other models

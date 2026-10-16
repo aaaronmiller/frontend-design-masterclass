@@ -295,6 +295,7 @@ product — never like the system that built it.
   content (compress the top nav while there).
 - **Copy audit (add to Post-Generation QA):** read every headline aloud. If any line could
   sit unchanged on a competitor's page, rewrite it with one concrete noun from the brief.
+- **Lead reports with the bold what-matters line.** Dashboard/report copy opens with a bolded summary of what matters, then less text — scannable beats exhaustive (Theo: "100 times more readable... using bold at the start of these to say what matters... so much less text"). Density above the fold repels ("a bit much for my taste").
 
 
 
