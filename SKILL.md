@@ -306,6 +306,9 @@ See `references/typography.md` for full font catalogs and pairing strategies.
 NEVER use Inter, Roboto, Open Sans, Lato, or default system fonts unless heavily modified.
 NEVER converge on Space Grotesk across generations.
 
+**Font choice is the cheapest taste signal.** No cringe defaults is the minimum bar for shippable AI UI — a build can survive weak layout, but gross fonts mark it as slop instantly (Theo, Haiku test: "I like the fonts it chose. It's not picking cringe fonts as much as models used to"). Calibrate expectations honestly: cheap-model output is "usable, not great" — always budget a human taste pass on top.
+
+
 ### Color (The Structured Palette)
 Build a 3-group palette: Base Tones, Primary Tones, Accent Tones.
 **Author every token in `oklch()`, not hex or hsl.** sRGB is not perceptually uniform, so a
@@ -387,6 +390,26 @@ Enters are always slightly longer than exits (asymmetric timing).
 Vertical scaffolding, asymmetry, negative space, grid-breaking elements.
 See `references/landing-pages.md` Section 4 for visual flow patterns.
 
+### Async-Agent Dashboards (sidebar, status, steering)
+
+For UIs supervising long-running agents/threads (dev dashboards, queue sidebars),
+attention is the scarce resource — design for triage, not surveillance (Theo,
+agent-maxing setup, Oct 2026):
+
+- **Inbox-zero sidebar.** A thread list is an inbox: settle/archive by default, never
+  accumulate. Completed work must visibly leave the active list — and search must be
+  trustworthy enough to retrieve it, or the sidebar becomes an un-triagable pile
+  ("turn your sidebar into inbox zero... end your day with all your threads gone").
+- **Dim the working, surface the waiting.** In-progress threads go semi-transparent;
+  full emphasis only on needs-human states (done / waiting-for-input). "There are few
+  worse uses of your time than watching an agent as it works" — never design UI that
+  invites watching work happen.
+- **Queued-steer control.** Long tasks need a visible pending slot: message shows as
+  queued, auto-sends at the next tool-call boundary, with a steer-to-send-now override.
+- **Disconnect is a toggle; remove is destructive.** Temporary-vs-permanent must be
+  visually distinct: disconnect reads reversible (toggle), remove is always available
+  and explicitly marked permanent. Never merge them into one ambiguous control.
+
 ### Accessibility (Non-Negotiable)
 - Semantic HTML: `<article>`, `<section>`, `<nav>`, `<aside>`, `<main>`
 - Focus states: NEVER `outline: none`. Style as `outline: 2px solid var(--accent); outline-offset: 4px`
@@ -414,6 +437,18 @@ use `break-inside: avoid` on cards/charts/tables.
 7. **Validate**: Run the Pre-Delivery Checklist (Section 8). Fix all failures.
 8. **Iterate**: Compare against the aesthetic vision. Adjust until it pops.
 
+### Design-Skill Lever (fix the system, not the symptoms)
+
+Unskilled AI output has a recognizable failure signature: filler text everywhere, gross
+default fonts, the same awful top nav on every generation (Theo, skill on/off test, Oct
+2026: "If I turn it off, you get a lot more cringe... every single one of them" ships
+the identical nav). Patching each symptom wastes turns — enable the design skill (this
+one, or the official Anthropic `frontend-design` skill: "definitely try turning that on")
+and the whole signature clears at once. One design skill at a time: stacking taste/style
+skills regresses output back to the generic layout ("I don't recommend the taste skill...
+back to... weird cringe top navs"). Verify with the top-nav test: generate twice; if
+both share a nav, the skill isn't loaded.
+
 ### AI-Generation Loop (small prompts, screenshot verdicts)
 
 When iterating UI with an AI model, many small steers beat one batched mega-prompt —
@@ -423,11 +458,14 @@ Astra is "way, way, way, way worse at design than the anthropic models," yet the
 in-the-loop result was better — "design is all about how users interact with and
 perceive things," and only the loop exercises perception).
 
+- **Screenshot + blunt verdict.** The highest-bandwidth steering signal is a screenshot
+  plus accept/reject ("not acceptable"; "vertical bars make it all fit fine on a normal
+  screen"). Picture first, words second. For uncertain fixes, branch explicitly: fix it
+  directly and send a screenshot back, or produce mocks for joint decision — never a
+  wall of text describing options (Theo: "hand the screenshot to the agent and say 'Fix
+  it'... make me a few mocks... and we can decide between them").
 - **Shrink the batch.** Send one change at a time; watch it land before steering the next.
   Twenty-item change lists regress; single-issue turns compound.
-- **Screenshot + blunt verdict.** The highest-bandwidth steering signal is a screenshot
-  plus accept/reject: "not acceptable," "vertical bars make it all fit fine on a normal
-  screen." Picture first, words second.
 - **Separate the copy pass.** Layout first, then a dedicated cheap pass: "make the copy
   better." Never bundle wording into structural prompts.
 - **Reserve the tasteful model for draft one — route UI passes through taste, logic through anything.** Models differ in visual taste more than in correctness: one can be functionally right yet produce "sinfully ugly" generic UI from the same prompt another renders beautifully (Theo, Muse-vs-Claude test, Oct 2026). Refinement loop runs on the fastest/cheapest model that follows instructions.
@@ -448,6 +486,7 @@ Run this before delivering any UI code. Every item is a known failure mode.
 - [ ] No stat strips or eyebrow titles above headlines
 - [ ] Images have correct dimensions and aspect ratios (no bad crops or cutoffs)
 - [ ] Second-wave tells cleared: no cream `#F4F1EA` + terracotta `#D97757` default, no tinted-black `#0B0B0B`/`#111` + single acid accent, no broadsheet costume on non-editorial content
+
 - [ ] Template chrome varied: not every heading carries an ALL-CAPS eyebrow; no `A · B · C` meta strings, `WORD — fragment` labels, default mono data labels, or `→` on every link by habit
 
 ### Interaction
@@ -514,6 +553,7 @@ If you generate multiple pages or redesign within a session, each output MUST ha
 Identical structure with different colors is the hallmark of a model with too few
 internal templates. You have the capability to produce genuinely different designs.
 Use it.
+Reward genuinely novel entrances: a micro-entrance nobody has seen before is the mark of non-slop output ("I haven't seen anything like that in one of these demos before... It's different, but it's cool" — Theo, Haiku test). Clearing the bar is not the bar.
 Novelty counts: a distinct visual flavor — even from a weaker hand — beats shipping the same recognizable "distillation" look every model converges on (Theo on a generic-but-novel UI: "a different flavor of slop... it doesn't taste like yet another claude distillation"). Different must mean *unrecognizable as AI output*, not just rearranged.
 
 ### Post-Generation QA
