@@ -1,7 +1,7 @@
 {
     "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
     "name": "frontend-design-masterclass",
-    "version": "2.1.0",
+    "version": "2.5.0",
     "description": "Build distinctive, production-grade frontend interfaces with SvelteKit/Bun/Hono. Opinionated modern stack with deep reference documentation on typography, color, layout, animation, imagery, data visualization, and Mermaid theming.",
     "author": "Ice-ninja",
     "license": "MIT",
@@ -31,6 +31,10 @@
     "dependencies": {
         "optional": [
             {
+                "name": "hallmark",
+                "description": "Design workflow and verification for new pages; install separately from Nutlope/hallmark. See references/hallmark.md."
+            },
+            {
                 "name": "auditing-ui-ux",
                 "description": "Audit and improve existing interfaces after initial build"
             },
@@ -45,6 +49,11 @@
         ]
     },
     "resources": [
+        {
+            "name": "hallmark",
+            "source": "./references/hallmark.md",
+            "description": "Companion routing, design ownership, framework integration, and verification"
+        },
         {
             "name": "landing-pages",
             "source": "./references/landing-pages.md",

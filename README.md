@@ -28,10 +28,17 @@ A portable `SKILL.md` package that teaches an AI agent to design interfaces that
 
 ## How it works
 
+New websites, pages, and app screens use [Hallmark](https://github.com/Nutlope/hallmark)
+for visual direction and its verification workflow. This masterclass supplies stack
+and implementation guidance. Existing designs retain their system; Hallmark redesign
+or audit requires an explicit request. See [the integration guide](references/hallmark.md)
+for local installation paths, scope, and framework checks. If Hallmark is unavailable,
+the masterclass reports that and uses its own design workflow.
+
 1. **Intent identification** — classifies each request across three dimensions before loading any reference, so the right design language is applied.
 2. **Progressive disclosure** — pulls only the reference docs it needs from [`references/`](references/):
 
-   `color-system` · `typography` · `landing-pages` · `data-visualization` · `data-graphics` · `imagery` · `microanimations` · `visual-kinetics` · `mermaid-theming` · `web-design-themes`
+   `hallmark` · `color-system` · `typography` · `landing-pages` · `data-visualization` · `data-graphics` · `imagery` · `microanimations` · `visual-kinetics` · `mermaid-theming` · `web-design-themes`
 
 ## Install
 
@@ -42,6 +49,10 @@ git clone https://github.com/aaaronmiller/frontend-design-masterclass.git \
 ```
 
 The skill auto-activates when a frontend/design task matches its triggers. Also distributable via the included `marketplace.json`.
+
+The separately installed Hallmark skill is a companion dependency, not bundled by
+this repository's clone command. On this workstation it is linked from custom-skills
+to the full checkout in `/home/cheta/git/hallmark`.
 
 ## License
 

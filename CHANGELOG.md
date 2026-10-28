@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+
+## [v2.5] - 2026-10-28 - Hallmark integration and landing-page strategy
+
+### Added
+- Route new websites, pages, and app screens to the separately installed Hallmark
+  skill; retain the masterclass stack and technical patterns with one visual owner.
+- Add `references/hallmark.md` for scope, existing-design boundaries, framework and
+  token integration, callable lint commands, and honest verification reporting.
+- Extend landing-page conversion guidance with traffic intent, visitor objections,
+  evidence beside claims, conditional page shapes, and launch-readiness checks.
+- Preserve pinned Elaya source provenance and Elaya/Leonxlnx MIT notices.
+- Register the companion reference and dependency in marketplace metadata; update
+  the README and package version to match the v2.5 skill.
+
+### Changed
+- Resolve Hallmark conflicts explicitly instead of stacking its design gates with
+  older masterclass style mandates. Preserve existing application stacks and brands.
+- Replace the repeated-nav heuristic with product-appropriate navigation guidance.
+
 ## [v2.4] — 2026-10-16 — Theo batch (10 transcripts, Oct 2–16 2026)
 
 Source: 10 full transcripts (`/home/cheta/code/theo-transcripts/raw/`), mined one video at a

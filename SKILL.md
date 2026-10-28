@@ -1,15 +1,38 @@
 ---
 name: frontend-design-masterclass
-description: "Builds distinctive frontend UI with SvelteKit/Bun/Hono. Triggers on: web pages, dashboards, landing pages, apps, artifacts, styling, theming, fonts, animations, charts, dark/light modes."
+description: "Builds distinctive frontend UI with SvelteKit/Bun/Hono. Triggers on: web pages, dashboards, landing pages, apps, artifacts, html output, styling, theming, fonts, animations, charts, dark/light modes."
 license: MIT
 ---
 
-# Frontend Design Masterclass v2.4
+# Frontend Design Masterclass v2.5
 
 Build interfaces that resonate, not just render. This skill enforces bold, intentional
 design with a modern high-performance stack. Every pixel must justify its existence.
 
+## Design workflow routing
+
+For a **new website, page, or app screen**, use the installed **Hallmark** skill as
+this masterclass's design workflow. Read `references/hallmark.md`, then Hallmark's
+`SKILL.md` before planning the page. Hallmark owns composition, theme, typography,
+colour, imagery, motion, and its verification gates. This masterclass supplies the
+implementation stack and technical patterns. Do not combine competing taste systems:
+Hallmark's rules replace the style-specific mandates below and in the references for
+that run, including section counts, font choices, mandatory texture/animation, and
+cross-page variety. Pages within one product keep its established brand system.
+
+For **changes to an existing design or an individual component**, preserve the
+project's design system and make the requested change. Use Hallmark's redesign or
+audit workflow only when the user explicitly names Hallmark for that target.
+
+For **landing pages**, also read the strategy and launch-readiness guidance in
+`references/landing-pages.md` Section 5. It supplies conversion questions and checks,
+not a second visual system or a mandatory sequence of sections.
+
 ## 1. Core Stack
+
+Use this stack for new standalone projects. In an existing application, retain its
+framework, runtime, dependencies, and file conventions. Hallmark supports framework
+projects through their running routes; it does not require a static HTML rewrite.
 
 - **Framework**: SvelteKit 5 with Runes (`$state`, `$derived`, `$effect`)
 - **Runtime**: Bun (server, packages)
@@ -59,8 +82,9 @@ typography scale, and animation intensity.
 
 ## 3. Resource Loading Protocol
 
-After identifying intent, scan the request for trigger keywords. Load matching
-reference files from `references/` to access deep implementation patterns.
+After selecting the design workflow above and identifying intent, load matching
+technical references from `references/`. In a Hallmark run, use them for implementation
+patterns only; Hallmark remains the single owner of visual decisions.
 
 ### Landing Pages and Hero Sections
 **Triggers**: "landing page", "hero", "above the fold", "homepage", "site title",
@@ -70,7 +94,8 @@ reference files from `references/` to access deep implementation patterns.
 constraint defaults, 8 landing page styles (Apple Keynote, Editorial Broadsheet,
 Geometric Playground, Cinematic Immersive, Swiss Grid, Neo-Brutalist, Organic Flow,
 Retro Terminal — with caveat), visual flow patterns (Z/F/Golden/Diagonal), conversion
-architecture, mobile-first hero strategy, expanded anti-patterns catalog, code patterns.
+architecture, traffic-aware conversion strategy, evidence and objection handling,
+launch readiness, mobile-first hero strategy, expanded anti-patterns, code patterns.
 
 ### Typography and Font Selection
 **Triggers**: "font", "typography", "typeface", "heading", "text style", "font pairing",
@@ -427,16 +452,23 @@ use `break-inside: avoid` on cards/charts/tables.
 
 ## 7. Implementation Workflow
 
-1. **Identify**: Classify product type, style intent, audience (Section 2).
-2. **Load**: Scan for resource triggers. Load relevant reference files (Section 3).
+1. **Identify**: Classify product type, style intent, audience, and whether this is
+   a new page or a change to an existing design (Section 2).
+2. **Route and load**: Select the design workflow above. For a Hallmark run, read
+   `references/hallmark.md` and follow its hero-first build and sweep. Load only
+   compatible technical references from Section 3.
 3. **Research**: For complex builds, conduct deep research (up to 10 web searches)
    on comparable award-winning sites, patterns, and library capabilities.
-4. **Architect**: Plan SvelteKit file structure. Define CSS variable tokens.
-5. **Code**: Write semantic HTML, extended Tailwind, Svelte 5 Runes.
-   Production-ready, no placeholders.
-6. **Polish**: Apply microanimations, texture layers, hover states, scroll triggers.
-7. **Validate**: Run the Pre-Delivery Checklist (Section 8). Fix all failures.
-8. **Iterate**: Compare against the aesthetic vision. Adjust until it pops.
+4. **Architect**: Plan files and tokens in the selected framework; retain existing
+   project conventions. Use Section 1's stack for new standalone work.
+5. **Code**: Write semantic markup and working components in that stack.
+   Production-ready, no placeholders or invented proof.
+6. **Polish**: Follow the selected design system's imagery and motion choices;
+   complete interaction states without imposing a second visual recipe.
+7. **Validate**: Run Hallmark's sweep when selected, the applicable Pre-Delivery
+   Checklist items (Section 8), and the project's declared checks. Fix failures;
+   report any unavailable render or review rather than claiming a pass.
+8. **Iterate**: Inspect screenshots against the brief and selected direction.
 
 ### Design-Skill Lever (fix the system, not the symptoms)
 
@@ -445,10 +477,10 @@ default fonts, the same awful top nav on every generation (Theo, skill on/off te
 2026: "If I turn it off, you get a lot more cringe... every single one of them" ships
 the identical nav). Patching each symptom wastes turns — enable the design skill (this
 one, or the official Anthropic `frontend-design` skill: "definitely try turning that on")
-and the whole signature clears at once. One design skill at a time: stacking taste/style
-skills regresses output back to the generic layout ("I don't recommend the taste skill...
-back to... weird cringe top navs"). Verify with the top-nav test: generate twice; if
-both share a nav, the skill isn't loaded.
+and the whole signature clears at once. Keep one owner for taste/style decisions:
+for new pages, route through Hallmark as described above and use this masterclass for
+implementation. Do not layer another skill's visual rules over that direction.
+Judge navigation against the product's needs; related pages may share a nav and brand.
 
 ### AI-Generation Loop (small prompts, screenshot verdicts)
 

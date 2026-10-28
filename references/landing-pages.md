@@ -5,6 +5,10 @@ The landing page (or hero section) is the single most impactful element of any w
 determines whether a visitor stays or bounces within 2-3 seconds. Every choice here must be
 deliberate and bold.
 
+For a Hallmark run, Hallmark owns visual choices and page anatomy. Use this
+reference's Section 5 for strategy and launch checks, and its code examples only
+when compatible with the selected system. The style recipes elsewhere are alternatives.
+
 ## Table of Contents
 
 1. The Site Title
@@ -79,8 +83,9 @@ The hero section sits above the fold and contains 5 critical elements in priorit
    "See it in action" (avoid "Learn more" or "Submit").
 4. **Visual Proof**: Screenshot, demo, video, or illustration that demonstrates the
    product/concept. This is the "show, don't tell" element.
-5. **Trust Signal**: Logo bar, testimonial snippet, metric ("10,000+ teams"), or
-   social proof element. Appears last, often as a scrolling marquee or grid.
+5. **Trust Signal, when supplied**: A real, approved customer logo, attributed
+   quote, or verified metric. If none exists, omit the proof block; never invent
+   customers or numbers to fill this slot.
 
 ### The Composition Rule
 
@@ -279,6 +284,47 @@ without using a visible card or border. Implement via:
 
 ## 5. Conversion Architecture
 
+### Offer, audience, traffic, and evidence
+
+For a conversion landing page, identify one offer, one audience, and one primary
+action. A homepage or working app screen may serve several intents; do not force
+this conversion model onto it.
+
+Read the brief and project first. Determine the offer, what counts as conversion,
+traffic source, visitor knowledge, and objections that could stop the next step.
+Ask only for unavailable facts that change the work; infer ordinary design choices
+and state material assumptions. Do not turn intake into a mandatory questionnaire.
+
+Match the hero promise to the referring ad, email, or search intent when that
+source is known. Keep the primary action's name and destination consistent through
+the page. State benefits as concrete outcomes, supported by supplied evidence;
+never invent a time saving or metric to make a headline more specific.
+
+Inventory real screenshots, demonstrations, quotes, approved customer logos, prices,
+and actual terms. Put each proof beside the claim it supports. If proof is absent,
+show the real product or describe its capability without a manufactured testimonial,
+logo wall, customer name, or precise-looking number. Fictional demo data must be
+explicitly requested and labelled; it is never customer proof.
+
+### Choose the argument, then the sections
+
+| Visitor context | Useful page shape | Evidence to prioritize |
+| --- | --- | --- |
+| Product is understood from a demonstration | Hero plus selected explanatory sections | Real screenshot or working demo beside the promise |
+| Unfamiliar category or substantial skepticism | A longer explanation driven by the actual objections | Mechanism, limitations, evidence, and answers in context |
+| Known audience with a narrow offer | A short conversion page | Exact offer, terms, and the action |
+| Visitors evaluating alternatives | A comparison page | Verifiable differences and criteria relevant to their decision |
+
+These are choices, not templates. Include benefits, a process, proof, comparison,
+or FAQ only when they answer a visitor's question. Do not require three steps,
+six to twelve FAQ entries, or a tagline reveal on every page. For a high-friction
+offer, address the decisive objection before asking for commitment. Describe a
+trial, refund, cancellation rule, or guarantee only when the product actually offers
+it. Keep any repeated final CTA consistent with the same action.
+
+Build the hero first, then refine the affected section without rebuilding unrelated
+parts of the page. Preserve working links, form behavior, and existing content.
+
 ### Above-the-Fold Checklist
 
 Every element above the fold must answer one of these questions:
@@ -307,6 +353,37 @@ If the hero is full-viewport, indicate more content exists below:
 - Partially visible section below the fold (peek: 60-80px of next section visible)
 - Mouse-scroll animation icon
 - Text prompt: "Scroll to explore" in small, muted type
+
+---
+
+### Launch readiness
+
+Before handing off a landing page:
+
+- **Destination and states:** follow the primary action and navigation links.
+  Forms validate input and report loading, error, and confirmed success accurately.
+  Do not display a successful signup when nothing was sent. Clearly identify
+  unavailable backend wiring instead of simulating it.
+- **Findability:** make an explicit index/noindex choice based on intended search
+  traffic, page lifetime, and the project's existing robots policy. Set an accurate
+  title, description, canonical URL where applicable, and social-sharing metadata;
+  verify the sharing image and favicon assets exist. A campaign label alone does
+  not decide indexing. FAQs answer real questions; do not add structured data or
+  promise search/answer-engine visibility without checking current eligibility.
+- **Recovery and access:** verify the 404/back path, keyboard access, a skip link
+  where navigation needs bypassing, image alternatives, and readable mobile layout.
+- **Product policy:** use real supplied privacy/terms destinations and consent
+  behavior appropriate to the site's actual data use. Do not invent legal text,
+  dead legal links, or a consent banner for decoration.
+
+This strategy and launch-readiness extension selectively adapts
+[Elaya's landing-page-design](https://github.com/elayadesign/ai-design-skills/blob/ded7efc9d5c02761c41a03caf3b78f9259ab8828/skills/landing-page-design/SKILL.md)
+(reviewed 2026-10-28, commit `ded7efc9d5c02761c41a03caf3b78f9259ab8828`).
+It retains traffic-aware messaging, evidence placement, objection handling, layout
+selection, focused iteration, and release checks. It excludes the upstream fixed
+font/spacing/icon/gradient system, compulsory section sequence and word reveal,
+fabricated proof, and blanket indexing rules. License notices follow at the end
+of this reference; the upstream skill credits Leonxlnx/taste-skill.
 
 ---
 
@@ -465,3 +542,61 @@ If the hero is full-viewport, indicate more content exists below:
 - **Identical Layout Syndrome**: Generating multiple pages that are structurally
   identical with only color swaps. If doing multiple generations or pages, each must
   have a meaningfully different layout structure — not the same grid with different hues.
+
+
+## Third-party notices for the strategy extension
+
+The Section 5 extension includes adapted guidance from Elaya and the upstream
+credit to Leonxlnx/taste-skill. These notices apply to that contribution.
+
+### Elaya, AI Design Skills
+
+```text
+MIT License
+
+Copyright (c) 2026 Elaya
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
+
+### Leonxlnx, taste-skill
+
+```text
+MIT License
+
+Copyright (c) 2026 Leonxlnx
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
