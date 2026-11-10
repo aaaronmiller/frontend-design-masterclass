@@ -4,25 +4,60 @@ description: "Builds distinctive frontend UI with SvelteKit/Bun/Hono. Triggers o
 license: MIT
 ---
 
-# Frontend Design Masterclass v2.5
+# Frontend Design Masterclass v2.6
 
 Build interfaces that resonate, not just render. This skill enforces bold, intentional
 design with a modern high-performance stack. Every pixel must justify its existence.
 
-## Design workflow routing
+## Design workflow routing (revised 2026-11-09)
 
-For a **new website, page, or app screen**, use the installed **Hallmark** skill as
-this masterclass's design workflow. Read `references/hallmark.md`, then Hallmark's
-`SKILL.md` before planning the page. Hallmark owns composition, theme, typography,
-colour, imagery, motion, and its verification gates. This masterclass supplies the
-implementation stack and technical patterns. Do not combine competing taste systems:
-Hallmark's rules replace the style-specific mandates below and in the references for
-that run, including section counts, font choices, mandatory texture/animation, and
-cross-page variety. Pages within one product keep its established brand system.
+This masterclass owns the visual direction of every **new website, page, or app
+screen**. Build from its own mandates and references: the structured palette
+(`color-system.md`), the three-layer hero (`imagery.md`, `landing-pages.md`), motion
+tokens and microanimations (`microanimations.md`, `visual-kinetics.md`), and the
+Visual Floor below. Pages within one product keep its established brand system.
+
+**Hallmark is opt-in.** Use it only when the user names Hallmark. It never replaces
+the Visual Floor or the user's brief. In a Hallmark run, its theme deal and lint may
+add constraints, but its restraint rules (a words-per-screen budget, single-accent
+postures, themes where "nothing moves") yield wherever they would remove content,
+imagery, colour or motion the brief or the Visual Floor calls for. Its `sloplint`
+may run as an extra mechanical check on any page; its findings that conflict with
+the Visual Floor are dismissed, not fixed.
+
+Why this changed: a run that let Hallmark own the design shipped a drab slate page
+with one muted accent, no hero image, no motion, and the source document hidden
+behind tabs and accordions to meet an 80-word screen budget. The user rejected it
+outright. The masterclass mandates exist to prevent exactly that page.
 
 For **changes to an existing design or an individual component**, preserve the
 project's design system and make the requested change. Use Hallmark's redesign or
 audit workflow only when the user explicitly names Hallmark for that target.
+
+## Visual Floor (every new page; not waivable without the user's explicit request)
+
+1. **Hero with a visual.** A real or generated image, or a background effect, built on
+   the three-layer stack (base canvas, image or gradient layer, texture or grid overlay).
+   Never a flat colour field with text on it.
+2. **A palette with colour in it.** Base, primary and accent groups from the
+   structured palette workflow, the accent derived by a harmony model (complementary,
+   split-complementary or triadic). When the content has categories, give each its own
+   hue and keep it consistent everywhere that category appears. The accent shows up
+   beyond a single button. Ship a designed dark mode and light mode with a toggle.
+3. **Motion.** An entrance moment, scroll reveals, five-state controls, hover feedback
+   on everything clickable, all through motion tokens, with a reduced-motion fallback.
+4. **Cohesive navigation.** A sticky or floating nav that gains a backdrop on scroll,
+   section links with an active indicator, and a working mobile menu.
+5. **All content visible.** When the page presents a document or reference material,
+   every part of it is on the page. Never hide source content behind tabs, accordions,
+   dropdowns or "read more" to satisfy a density or word-budget rule; organise it with
+   layout instead (full sections, card grids, timelines, tables). Disclosure widgets are
+   allowed only when the user asks for them.
+6. **Designed negative space.** No dead bands, no hero stretched to the fold with an
+   empty gap in it, no lone column floating in a wide empty section.
+7. **Screenshot gate.** Before delivery, screenshot the page at 1440 and 375 in both
+   modes, check each item above against the pictures (not the code), fix every miss,
+   and report the result item by item. A page that fails any item is not delivered.
 
 For **landing pages**, also read the strategy and launch-readiness guidance in
 `references/landing-pages.md` Section 5. It supplies conversion questions and checks,
@@ -82,9 +117,9 @@ typography scale, and animation intensity.
 
 ## 3. Resource Loading Protocol
 
-After selecting the design workflow above and identifying intent, load matching
-technical references from `references/`. In a Hallmark run, use them for implementation
-patterns only; Hallmark remains the single owner of visual decisions.
+After identifying intent, load matching references from `references/`. They carry
+both the visual direction and the implementation patterns; in an opt-in Hallmark run
+they still supply everything the Visual Floor requires.
 
 ### Landing Pages and Hero Sections
 **Triggers**: "landing page", "hero", "above the fold", "homepage", "site title",
@@ -454,18 +489,18 @@ use `break-inside: avoid` on cards/charts/tables.
 
 1. **Identify**: Classify product type, style intent, audience, and whether this is
    a new page or a change to an existing design (Section 2).
-2. **Route and load**: Select the design workflow above. For a Hallmark run, read
-   `references/hallmark.md` and follow its hero-first build and sweep. Load only
-   compatible technical references from Section 3.
+2. **Route and load**: Load the references from Section 3 that the page needs (for a
+   new page at least `color-system.md`, `imagery.md`, `microanimations.md` and
+   `landing-pages.md`). Read `references/hallmark.md` only when the user names Hallmark.
 3. **Research**: For complex builds, conduct deep research (up to 10 web searches)
    on comparable award-winning sites, patterns, and library capabilities.
 4. **Architect**: Plan files and tokens in the selected framework; retain existing
    project conventions. Use Section 1's stack for new standalone work.
 5. **Code**: Write semantic markup and working components in that stack.
    Production-ready, no placeholders or invented proof.
-6. **Polish**: Follow the selected design system's imagery and motion choices;
-   complete interaction states without imposing a second visual recipe.
-7. **Validate**: Run Hallmark's sweep when selected, the applicable Pre-Delivery
+6. **Polish**: Complete the imagery, motion and interaction states the Visual Floor
+   requires; keep one coherent visual direction.
+7. **Validate**: Run the Visual Floor screenshot gate, the applicable Pre-Delivery
    Checklist items (Section 8), and the project's declared checks. Fix failures;
    report any unavailable render or review rather than claiming a pass.
 8. **Iterate**: Inspect screenshots against the brief and selected direction.
@@ -478,8 +513,8 @@ default fonts, the same awful top nav on every generation (Theo, skill on/off te
 the identical nav). Patching each symptom wastes turns — enable the design skill (this
 one, or the official Anthropic `frontend-design` skill: "definitely try turning that on")
 and the whole signature clears at once. Keep one owner for taste/style decisions:
-for new pages, route through Hallmark as described above and use this masterclass for
-implementation. Do not layer another skill's visual rules over that direction.
+for new pages that owner is this masterclass and its Visual Floor. Do not let another
+skill's restraint rules strip colour, imagery, motion or content from that direction.
 Judge navigation against the product's needs; related pages may share a nav and brand.
 
 ### AI-Generation Loop (small prompts, screenshot verdicts)
@@ -506,6 +541,14 @@ perceive things," and only the loop exercises perception).
 ## 8. Pre-Delivery Checklist
 
 Run this before delivering any UI code. Every item is a known failure mode.
+
+### Visual Floor (Section: Visual Floor; every item, checked on screenshots)
+- [ ] Hero carries an image or background effect on the three-layer stack
+- [ ] Palette uses base, primary and accent from a harmony model; categories keep their own hue; dark and light modes both designed
+- [ ] Entrance motion, scroll reveals, five-state controls and hover feedback, all on motion tokens
+- [ ] Sticky or floating nav with scroll backdrop, active-section indicator and mobile menu
+- [ ] Every part of the source content is visible; nothing hidden in tabs, accordions or dropdowns
+- [ ] No dead bands or stretched empty gaps
 
 ### Visual Quality
 - [ ] No emojis used as UI icons (use Lucide or Heroicons SVGs)

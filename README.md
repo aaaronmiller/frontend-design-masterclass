@@ -28,12 +28,13 @@ A portable `SKILL.md` package that teaches an AI agent to design interfaces that
 
 ## How it works
 
-New websites, pages, and app screens use [Hallmark](https://github.com/Nutlope/hallmark)
-for visual direction and its verification workflow. This masterclass supplies stack
-and implementation guidance. Existing designs retain their system; Hallmark redesign
-or audit requires an explicit request. See [the integration guide](references/hallmark.md)
-for local installation paths, scope, and framework checks. If Hallmark is unavailable,
-the masterclass reports that and uses its own design workflow.
+The masterclass owns the visual direction of new websites, pages, and app screens,
+and holds every one to a Visual Floor: a hero with an image or background effect, a
+harmony-built palette with designed dark and light modes, real microanimations, a
+cohesive nav, all source content visible, and a screenshot gate before delivery.
+[Hallmark](https://github.com/Nutlope/hallmark) is opt-in: it runs only when the user
+names it, and its restraint rules never override the Visual Floor. See
+[the integration guide](references/hallmark.md) for that opt-in path.
 
 1. **Intent identification** — classifies each request across three dimensions before loading any reference, so the right design language is applied.
 2. **Progressive disclosure** — pulls only the reference docs it needs from [`references/`](references/):

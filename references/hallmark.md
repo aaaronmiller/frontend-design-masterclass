@@ -7,6 +7,13 @@ reviewed: 2026-10-28
 
 # Hallmark integration
 
+> **Opt-in since 2026-11-09.** The masterclass owns new pages by default. Load this file
+> only when the user names Hallmark. Even then, the masterclass Visual Floor (SKILL.md)
+> outranks Hallmark's restraint rules: its words-per-screen budget, single-accent
+> postures and no-motion themes yield wherever they would remove content, imagery,
+> colour or motion. The sections below describe the integration under that rule; where
+> they say Hallmark "owns" a decision, read it as owning it inside the Visual Floor.
+
 Read this when the masterclass routes a new page or screen to Hallmark, or the user
 explicitly requests Hallmark redesign/audit. Keep the upstream skill intact and load
 its references progressively instead of copying its theme library into this skill.
