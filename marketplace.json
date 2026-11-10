@@ -1,7 +1,7 @@
 {
     "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
     "name": "frontend-design-masterclass",
-    "version": "2.5.0",
+    "version": "2.7.0",
     "description": "Build distinctive, production-grade frontend interfaces with SvelteKit/Bun/Hono. Opinionated modern stack with deep reference documentation on typography, color, layout, animation, imagery, data visualization, and Mermaid theming.",
     "author": "Ice-ninja",
     "license": "MIT",

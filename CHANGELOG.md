@@ -4,6 +4,32 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [v2.7] - 2026-11-09 - Direction exploration, companion skills, motion craft
+
+### Added
+- Direction Exploration and System Lock: three scored direction sketches before code,
+  reference extraction, a locked token block for pages with four or more sections,
+  and a mandate ledger in the delivery report.
+- Companion Skills table: taste-skill for the anti-slop audit, redesign-skill for
+  existing pages, imagegen for hero and section imagery, imagegen-frontend-web for
+  section references, GSAP skills only for scroll choreography. The Visual Floor wins
+  any conflict.
+- `references/motion-craft.md`: Emil Kowalski's motion rules (MIT, attributed).
+
+### Evidence
+- Blind A/B against v2.6 across three pages (an audit report, a simulator, and a
+  four-option homepage redesign), eight builds, one independent grader per batch,
+  eight criteria scored 1 to 10. v2.7 mean 7.63, v2.6 mean 7.44. v2.7 won two of the
+  three pages and produced the top-ranked build on both of those.
+
+## [v2.6] - 2026-11-09 - Masterclass owns new pages; Visual Floor
+
+### Changed
+- The masterclass owns visual direction for new pages; Hallmark runs only when named.
+- Added the Visual Floor (three-layer hero, structured palette with both modes, motion
+  tokens and five-state controls, cohesive navigation, all content visible) and a
+  screenshot gate.
+
 ## [v2.5] - 2026-10-28 - Hallmark integration and landing-page strategy
 
 ### Added

@@ -4,7 +4,7 @@ description: "Builds distinctive frontend UI with SvelteKit/Bun/Hono. Triggers o
 license: MIT
 ---
 
-# Frontend Design Masterclass v2.6
+# Frontend Design Masterclass v2.7
 
 Build interfaces that resonate, not just render. This skill enforces bold, intentional
 design with a modern high-performance stack. Every pixel must justify its existence.
@@ -38,7 +38,8 @@ audit workflow only when the user explicitly names Hallmark for that target.
 
 1. **Hero with a visual.** A real or generated image, or a background effect, built on
    the three-layer stack (base canvas, image or gradient layer, texture or grid overlay).
-   Never a flat colour field with text on it.
+   Never a flat colour field with text on it. Generate imagery with the `imagegen` skill
+   (see Companion Skills).
 2. **A palette with colour in it.** Base, primary and accent groups from the
    structured palette workflow, the accent derived by a harmony model (complementary,
    split-complementary or triadic). When the content has categories, give each its own
@@ -46,6 +47,7 @@ audit workflow only when the user explicitly names Hallmark for that target.
    beyond a single button. Ship a designed dark mode and light mode with a toggle.
 3. **Motion.** An entrance moment, scroll reveals, five-state controls, hover feedback
    on everything clickable, all through motion tokens, with a reduced-motion fallback.
+   Apply `references/motion-craft.md` (easing, durations, press, origin, interruptibility).
 4. **Cohesive navigation.** A sticky or floating nav that gains a backdrop on scroll,
    section links with an active indicator, and a working mobile menu.
 5. **All content visible.** When the page presents a document or reference material,
@@ -58,6 +60,48 @@ audit workflow only when the user explicitly names Hallmark for that target.
 7. **Screenshot gate.** Before delivery, screenshot the page at 1440 and 375 in both
    modes, check each item above against the pictures (not the code), fix every miss,
    and report the result item by item. A page that fails any item is not delivered.
+
+## Companion Skills (use them; do not re-derive what they own)
+
+This masterclass owns the overall visual direction and the Visual Floor. For these jobs,
+invoke the installed skill instead of improvising:
+
+| Job | Skill | When |
+| --- | --- | --- |
+| Anti-slop audit of the built page | `taste-skill` (design-taste-frontend) | Every new page, after the first full build and before the screenshot gate; fix what it flags |
+| Upgrading an existing page | `redesign-skill` (redesign-existing-projects) | The brief is "make this existing page better" |
+| Hero, section and texture imagery | `imagegen` | Any hero or section image; `-b agy` when Codex is out of quota; convert to WebP before embedding |
+| Per-section visual references before building | `imagegen-frontend-web` | Large landing pages where composition is undecided |
+| Motion craft (easing, duration, press, origin) | `references/motion-craft.md` (Emil Kowalski's rules) | Every page with transitions or hover states |
+| Scroll-linked choreography, pinned scenes, timelines | `gsap-core`, `gsap-scrolltrigger`, `gsap-timeline` | Only when CSS transitions and IntersectionObserver reveals are not enough |
+
+The companion skills sit under the Visual Floor: if one of them suggests removing
+colour, imagery, motion or content the Floor requires, the Floor wins.
+
+## Direction Exploration and System Lock (before any code; added 2026-11-09)
+
+Field evidence (Nov 2026): AI sites converge because the agent ships its first idea, and
+every anti-AI ban hardens into a new default ("every anti-AI design rule becomes a
+style"). Bans alone do not produce distinct work; choosing among distinct options does.
+
+1. **Three directions, not one.** Write three direction sketches that differ on at least
+   two of these axes: palette family and harmony model, type voice, layout structure
+   (editorial, split, bento, timeline, immersive, index), and the signature move. Each
+   sketch is five lines: palette (named OKLCH roles), type pair, layout concept, hero
+   treatment, signature. Score each 1 to 5 against the content and audience, pick one,
+   and say in one line why the other two lost. The first idea you had is the median of
+   your training data; it may win, but only after it beats two real alternatives.
+2. **Reference extraction.** When the user names a reference site, image or brand, extract
+   its system first (palette roles, type, radius, spacing rhythm, motion character) and
+   build from those values instead of from memory.
+3. **Lock the system.** For any page with four or more sections, write the token block
+   (or a `DESIGN.md`) with exact tables before components: colour roles in OKLCH for both
+   modes, the type scale with sizes and weights, radii per level, the spacing scale, and
+   the motion tokens. Components consume tokens only; a literal value outside the token
+   block is a defect. This is what keeps section seven looking like section one.
+4. **Mandate ledger at delivery.** Agents silently skip parts of long skills. The final
+   report lists every Visual Floor item and every Pre-Delivery Checklist group as
+   followed, or skipped with the reason. An unexplained skip is a failed delivery.
 
 For **landing pages**, also read the strategy and launch-readiness guidance in
 `references/landing-pages.md` Section 5. It supplies conversion questions and checks,
@@ -191,6 +235,13 @@ navigation feedback (menu items, hamburger, tab indicator), scroll-driven animat
 validation feedback, custom checkboxes), loading states (skeletons, success/error),
 page transitions, haptic-feel patterns (press, bounce, card lift, ripple), snap and
 magnetic behaviors, performance rules, easing and timing reference table.
+
+### Motion Craft (Emil Kowalski's rules)
+**Triggers**: any transition, hover, press, reveal, popover, menu, or entrance animation
+**Load**: `references/motion-craft.md`
+**Provides**: animate-or-not framework, strong custom easing curves, duration table,
+press/origin/interruptibility techniques, clip-path reveals, reduced-motion and
+hover-gating rules, review checklist.
 
 ### Visual Motion and Depth
 **Triggers**: "3d", "depth", "parallax", "tilt", "fake 3d", "spatial", "kinetic",
@@ -644,5 +695,6 @@ After generating any UI, run a quick vibe-check:
 7. **Color audit**: Is it defaulting to purple-blue gradients?
 8. **Tell audit**: Cream + terracotta? Tinted black + acid accent? Broadsheet costume? Template chrome (eyebrows everywhere, `·` strings, `→` on every link, single-word headline accent, numbered non-sequences)? Any hit needs a recorded brief-override.
 9. **Screenshot audit**: Screenshot the page and review the image, not the code — a picture is worth 1000 tokens. Check motion restraint (one orchestrated moment, not scattered reveals) and confirm the memorable detail lands.
+10. **Mandate ledger**: Write the ledger from Direction Exploration step 4 into the reply.
 
 Claude is capable of extraordinary creative work. Commit fully to the vision.
