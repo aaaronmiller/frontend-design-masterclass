@@ -4,6 +4,55 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [v3.0.0] - 2026-11-14 - Rebuilt on Anthropic's 2026-09-03 skill; menus, not mandates
+
+Option A of `docs/frontend-design-masterclass-notes/2026-11-13-v3-proposal.md` in the
+parent repository. A breaking change: the entry file, every reference and the stack rule
+are new.
+
+### Changed
+- `SKILL.md` rebuilt on Anthropic's `frontend-design` skill at commit 41bbe19
+  (Apache-2.0, attributed in `NOTICE`): subject grounding, the five AI-default clusters,
+  the token plan, one orchestrated moment, restraint, copy, screenshot critique. 44.6 KB
+  down to under 15 KB.
+- Everything beyond that spine is a menu the agent picks from. Eight references replace
+  twelve: `direction`, `color`, `type`, `imagery`, `motion`, `layout`, `data`, `landing`.
+- The only mandates are a seven-item floor: responsive from 320 to 1920 px, visible focus,
+  reduced motion, AA contrast, nothing invented, a screenshot critique, a lint pass. The
+  floor does not dictate page shape.
+- No default stack for HTML and artifacts; an existing project keeps its stack.
+  SvelteKit, Bun and Hono are a stated default only for a new app with no stack named.
+- Frontmatter description is one sentence containing "HTML"; `version: 3.0.0` added.
+
+### Added
+- `scripts/deal.mjs`: deals three far-apart themes (fit, contrast, wildcard) from the
+  50-theme Hallmark catalog; the agent adds a custom fourth, scores all four, picks one.
+- `scripts/lint.mjs`: wraps Hallmark's `sloplint`. Budget gates 20, 58, 59, 77 and 78 are
+  off by default; hero-geometry and illustration gates 44a to 44d, 79 and 80 report as
+  advice; `--hallmark` restores upstream behaviour. `--render` checks 320 to 1920 px in a
+  browser and saves screenshots.
+- `vendor/hallmark/`: unmodified `sloplint.mjs`, `sloplint-render.mjs`, `theme.mjs`,
+  `photos.json` (755 openly licensed photographs) and 50 theme files with their index,
+  from Nutlope/hallmark at 407fa68 (MIT).
+- `NOTICE` and `licenses/APACHE-2.0.txt`.
+
+### Removed
+- The Visual Floor as a mandate (required hero image on a three-layer stack, dark and
+  light toggle, sticky nav with backdrop, entrance moment, scroll reveals, hover motion on
+  everything). The three-layer stack survives as one background option in `imagery.md`.
+- Font bans, the six-section and one-accent defaults, the two-family minimum, the
+  product-type style table, the Variety Test as a mandate, the mandate ledger.
+- `references/web-design-themes.md` and `references/hallmark.md`. The theme catalog and
+  direct use of the vendored assets replace them.
+- Self-contradictions: per-section reveal variety against one orchestrated moment; the
+  accented headline keyword against the accented-word tell; required dual themes and a
+  fixed three-group palette; glow and gradient chart defaults; uppercase tracked labels
+  in table and stat recipes.
+- Duplicated catalogs: `microanimations.md`, `motion-craft.md` and `visual-kinetics.md`
+  merged into `motion.md`; `data-graphics.md`, `data-visualization.md` and
+  `mermaid-theming.md` merged into `data.md`; `color-system.md` into `color.md`;
+  `typography.md` into `type.md`; `landing-pages.md` sections 5 and 8 into `landing.md`.
+
 ## [v2.7] - 2026-11-09 - Direction exploration, companion skills, motion craft
 
 ### Added

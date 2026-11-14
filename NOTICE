@@ -1,0 +1,96 @@
+frontend-design-masterclass
+Copyright (c) 2025-2026, as stated in LICENSE.txt
+
+The skill's own text and scripts (scripts/lint.mjs, scripts/deal.mjs) are licensed under
+the MIT License in LICENSE.txt. This product includes material from the third parties
+listed below. Each keeps its own licence.
+
+--------------------------------------------------------------------------------
+1. Anthropic, frontend-design skill (Apache License 2.0)
+--------------------------------------------------------------------------------
+
+Source:  https://github.com/anthropics/skills, skills/frontend-design/SKILL.md
+Commit:  41bbe19 (2026-09-03)
+Licence: Apache License, Version 2.0. Full text: licenses/APACHE-2.0.txt
+
+Used in: SKILL.md. The opening paragraph and the sections "Ground your designs in the
+subject matter", "Design principles", "Process: plan, review against the brief, build,
+critique", "Restraint and self-critique" and "More on writing in design" are Anthropic's
+text.
+
+Changes made to that text (stated as section 4(b) of the licence requires):
+- the frontmatter and the title were replaced;
+- em dashes and en dashes were replaced with other punctuation or the word "to", except
+  the one em dash that is itself the example of a tell in the fifth calibration cluster;
+- one paragraph, "Deal before you plan", was inserted in the Process section;
+- an orienting paragraph was added after the opening paragraph, and the sections "The
+  floor", "Checking the work", "Stack" and "Menus" were added after Anthropic's text.
+
+--------------------------------------------------------------------------------
+2. Hallmark (MIT License)
+--------------------------------------------------------------------------------
+
+Source:  https://github.com/Nutlope/hallmark, skills/hallmark
+Commit:  407fa689f4a276f2fd389208d271d0fef08f5058 (2026-11-05), version 2.0.0
+Licence: MIT. Copyright (c) 2026 Hallmark contributors. Full text: vendor/hallmark/LICENSE
+
+Vendored without modification in vendor/hallmark/:
+- scripts/sloplint.mjs, scripts/sloplint-render.mjs, scripts/theme.mjs
+- scripts/photos.json (an index of Wikimedia Commons photographs; each photograph keeps
+  its own licence, CC0, public domain, CC BY or CC BY-SA, and must be credited where used)
+- references/themes/*.md (50 theme files) and references/themes/index.json
+
+Adapted, in this skill's own words and with changes, in references/direction.md,
+references/color.md, references/type.md, references/imagery.md, references/motion.md,
+references/layout.md and references/data.md, from Hallmark's direction.md, gates.md,
+craft.md, dark-mode.md, fonts.md, imagery.md, texture.md, layout.md, anatomy.md,
+interaction-and-states.md, microinteractions.md, patterns.md, scroll-choreography.md and
+data-viz.md. Each of those files names its source at the top.
+
+--------------------------------------------------------------------------------
+3. Emil Kowalski, emil-design-eng skill (MIT License)
+--------------------------------------------------------------------------------
+
+Source:  https://github.com/emilkowalski/skills
+Licence: MIT. Copyright (c) 2026 Emil Kowalski
+Used in: references/motion.md (the frequency table, easing curves, durations and the
+technique and review rules), adapted.
+
+--------------------------------------------------------------------------------
+4. Elaya, AI Design Skills, landing-page-design (MIT License)
+--------------------------------------------------------------------------------
+
+Source:  https://github.com/elayadesign/ai-design-skills, skills/landing-page-design/SKILL.md
+Commit:  ded7efc9d5c02761c41a03caf3b78f9259ab8828 (reviewed 2026-10-28)
+Licence: MIT. Copyright (c) 2026 Elaya
+Used in: references/landing.md (traffic-aware messaging, evidence placement, objection
+handling, launch checks), adapted. The upstream skill credits Leonxlnx/taste-skill.
+
+--------------------------------------------------------------------------------
+5. Leonxlnx, taste-skill (MIT License)
+--------------------------------------------------------------------------------
+
+Licence: MIT. Copyright (c) 2026 Leonxlnx
+Used in: references/landing.md, through Elaya's skill above.
+
+--------------------------------------------------------------------------------
+MIT License text, applying to items 2 to 5 with the copyright lines given above
+--------------------------------------------------------------------------------
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.

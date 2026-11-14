@@ -1,8 +1,8 @@
 {
     "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
     "name": "frontend-design-masterclass",
-    "version": "2.7.0",
-    "description": "Build distinctive, production-grade frontend interfaces with SvelteKit/Bun/Hono. Opinionated modern stack with deep reference documentation on typography, color, layout, animation, imagery, data visualization, and Mermaid theming.",
+    "version": "3.0.0",
+    "description": "Designs and builds distinctive web pages, UI and HTML output. A superset of Anthropic's frontend-design skill: the same subject-first process, plus optional menus for direction, colour, type, imagery, motion, layout, data and landing pages, a theme deck, and a mechanical lint with a render tier.",
     "author": "Ice-ninja",
     "license": "MIT",
     "repository": {
@@ -11,13 +11,13 @@
     },
     "keywords": [
         "frontend",
+        "html",
         "ui-design",
-        "sveltekit",
-        "tailwind",
+        "web-pages",
         "landing-pages",
         "dashboards",
         "typography",
-        "color-theory",
+        "color",
         "animation",
         "data-visualization"
     ],
@@ -25,79 +25,61 @@
         {
             "name": "frontend-design-masterclass",
             "source": "./SKILL.md",
-            "description": "Build distinctive frontend UI with SvelteKit/Bun/Hono"
+            "description": "Designs and builds distinctive web pages, UI and HTML output."
         }
     ],
     "dependencies": {
         "optional": [
             {
+                "name": "imagegen",
+                "description": "Generated hero, section and texture images; see references/imagery.md."
+            },
+            {
                 "name": "hallmark",
-                "description": "Design workflow and verification for new pages; install separately from Nutlope/hallmark. See references/hallmark.md."
-            },
-            {
-                "name": "auditing-ui-ux",
-                "description": "Audit and improve existing interfaces after initial build"
-            },
-            {
-                "name": "humanize-writing",
-                "description": "Polish UI copy for human voice"
-            },
-            {
-                "name": "deliberative-refinement",
-                "description": "Iterative design improvement with expert councils"
+                "description": "The standalone Hallmark skill, for a full Hallmark run. Its linter, theme catalog and photo index are already vendored here."
             }
         ]
     },
     "resources": [
         {
-            "name": "hallmark",
-            "source": "./references/hallmark.md",
-            "description": "Companion routing, design ownership, framework integration, and verification"
+            "name": "direction",
+            "source": "./references/direction.md",
+            "description": "The theme deck method, scoring, lint tiers, waivers, gate catalog"
         },
         {
-            "name": "landing-pages",
-            "source": "./references/landing-pages.md",
-            "description": "8 timeless styles, hero anatomy, flow patterns"
+            "name": "color",
+            "source": "./references/color.md",
+            "description": "OKLCH ramps, harmony models, colour postures, dark mode, contrast"
         },
         {
-            "name": "typography",
-            "source": "./references/typography.md",
-            "description": "Font catalogs, pairing strategies, type scales"
-        },
-        {
-            "name": "color-system",
-            "source": "./references/color-system.md",
-            "description": "3-group palette, harmony models, theme construction"
+            "name": "type",
+            "source": "./references/type.md",
+            "description": "Faces by class, one family or a pair, scale, loading"
         },
         {
             "name": "imagery",
             "source": "./references/imagery.md",
-            "description": "Dithering, overlays, Nano Banana, AI prompting"
+            "description": "Generated images, licensed photos, textures, backgrounds, dithering, duotone"
         },
         {
-            "name": "microanimations",
-            "source": "./references/microanimations.md",
-            "description": "5-state buttons, scroll animations, haptic patterns"
+            "name": "motion",
+            "source": "./references/motion.md",
+            "description": "The one orchestrated moment, easing, control states, interaction recipes"
         },
         {
-            "name": "visual-kinetics",
-            "source": "./references/visual-kinetics.md",
-            "description": "Parallax, glassmorphism, kinetic typography"
+            "name": "layout",
+            "source": "./references/layout.md",
+            "description": "Anatomy by visitor job, compositions, first screens, nav and footer forms"
         },
         {
-            "name": "data-graphics",
-            "source": "./references/data-graphics.md",
-            "description": "Tables, charts, infographics, Mermaid integration"
+            "name": "data",
+            "source": "./references/data.md",
+            "description": "Chart form, tables, dashboards, chart libraries, Mermaid theming"
         },
         {
-            "name": "data-visualization",
-            "source": "./references/data-visualization.md",
-            "description": "LayerChart, shadcn-svelte charts, bento grids"
-        },
-        {
-            "name": "mermaid-theming",
-            "source": "./references/mermaid-theming.md",
-            "description": "beautiful-mermaid setup, Shiki integration"
+            "name": "landing",
+            "source": "./references/landing.md",
+            "description": "Conversion questions, evidence placement, launch checks"
         }
     ]
 }
