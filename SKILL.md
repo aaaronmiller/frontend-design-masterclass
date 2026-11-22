@@ -3,6 +3,8 @@ name: frontend-design-masterclass
 description: "Designs and builds distinctive web pages, UI and HTML output."
 license: "MIT, with Apache-2.0 and MIT third-party portions (see NOTICE)"
 version: 3.0.0
+tags:
+  - DOMAIN
 ---
 
 <!-- The five spine sections are Anthropic's frontend-design skill (anthropics/skills@41bbe19, Apache-2.0), modified. See NOTICE. -->
