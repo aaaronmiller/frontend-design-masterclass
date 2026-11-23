@@ -99,9 +99,9 @@ are new.
 
 ## [v2.4] — 2026-10-16 — Theo batch (10 transcripts, Oct 2–16 2026)
 
-Source: 10 full transcripts (`/home/cheta/code/theo-transcripts/raw/`), mined one video at a
+Source: 10 full transcripts (`~/code/theo-transcripts/raw/`), mined one video at a
 time with per-video notes + adversarial review after each set of 4
-(`/home/cheta/code/theo-transcripts/notes/`, see INDEX.md). Zero-yield: vRS2leJLAI0,
+(`~/code/theo-transcripts/notes/`, see INDEX.md). Zero-yield: vRS2leJLAI0,
 ND_kRgU_WlY, nYA0yASgaZI (pricing/infra topics, no design content).
 
 ### Added
